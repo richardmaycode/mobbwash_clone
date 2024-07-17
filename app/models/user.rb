@@ -4,6 +4,8 @@ class User < ApplicationRecord
   PASSWORD_MIN_LENGTH = 8
   PASSWORD_MAX_LENGTH = 84
 
+  enum :user_type, { admin: 0, vendor: 1, customer: 2 }
+
   normalizes :email, with: ->(email) { email.strip.downcase }
   validates :email, presence: true, uniqueness: true
 
