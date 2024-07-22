@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   namespace :c do
     resources :users do
-      resources :requests, only: [ :index, :new, :create ]
+      resources :requests, only: [ :index, :show, :new, :create ]
     end
   end
 end

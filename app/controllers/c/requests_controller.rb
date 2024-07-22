@@ -1,6 +1,6 @@
 module C
   class RequestsController < ApplicationController
-    before_action :set_user, only: [ :new, :create ]
+    before_action :set_user
     def index
       @pagy, @requests = pagy(Request.where(customer_id: 1))
     end
