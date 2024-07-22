@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_19_144932) do
   end
 
   create_table "requests", force: :cascade do |t|
+    t.string "request_number"
     t.text "access_details"
     t.string "location"
     t.float "location_lat"

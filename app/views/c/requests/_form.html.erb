@@ -1,0 +1,50 @@
+<%= form_with model: [:c, @user, @request] do |f| %>
+    <div class="my-4">
+        <%= f.label :vehicle_id, "What are we Washing", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= f.select :vehicle_id, @user.vehicles.map { |v| [v.nickname, v.id] }, { }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 inline-block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+        <%= link_to "Add Vehicle", "#", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    </div>
+
+     <div class="my-4">
+        <%= f.label :location, "Where is it?", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= f.text_field :location, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
+        <%= f.hidden_field :location_lat, value: 0.1 %>
+        <%= f.hidden_field(:location_long, value: 0.1) %>
+    </div>   
+
+
+    <div class="my-4">
+        <%= f.label :scheduled, "When do you need it?" %>
+        <%= f.date_field :scheduled, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+    </div>
+
+    <div class="my-4">
+        <%= f.label :access_details, "How can we find it?"%>
+        <%= f.text_area :access_details, size: "70x5", class: "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+    </div>
+    <div class="my-4">
+        <h3 class="text-xl">What do you need done</h3>
+
+        <ul class="grid w-full gap-6 md:grid-cols-2">
+
+            <% @services.active.each do |service| %>
+                <li>
+                    <%= f.radio_button :service_ids, service.id, class: "hidden peer" %>
+                    <%= f.label "service_ids_#{service.id}", class: "inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
+                        <div class="block">
+                                <div class="w-full text-lg font-semibold"><%= service.name %></div>
+                                <div class="w-full"><%= number_to_currency(service.price) %></div>
+                        </div>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+
+
+
+    </div>
+    <div class="my-4">
+        <%= f.submit class: "w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    </div>
+
+<% end %>

@@ -19,6 +19,8 @@ Vehicle.create! nickname: "Noble Stead", make: "Chevy", model: "Bolt EUV", color
 
 Request.create! location: "Test", location_lat: 25.4, location_long: 26.2, scheduled: Time.zone.now - 5.days, completed: Time.zone.now - 5.days, customer_id: 1, vehicle_id: 1
 Request.create! location: "Test", location_lat: 25.4, location_long: 26.2, scheduled: Time.zone.now - 1.days, customer_id: 1, vehicle_id: 1
-Request.create! location: "Test", location_lat: 25.4, location_long: 26.2, scheduled: Time.zone.now, customer_id: 1, vehicle_id: 1
+150.times do
+  Request.create! location: "Test", location_lat: 25.4, location_long: 26.2, scheduled: Time.zone.now, customer_id: 1, vehicle_id: 1
+end
 
 RequestService.create! request_id: 1, service_id: 1
