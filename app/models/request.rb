@@ -13,4 +13,14 @@ class Request < ApplicationRecord
   validates :location_lat, presence: true
   validates :location_long, presence: true
   validates :scheduled, presence: true
+
+  validate :vendor_is_not_customer
+
+  def vendor_is_not_customer
+    unless vendor.nil?
+      unless vendor.user_type == "vendor"
+        errors.add(:vendor, "Vendor cannot be a customer.")
+      end
+    end
+  end
 end
