@@ -1,0 +1,42 @@
+<h1 class="text-4xl">Claim Customer Request</h1>
+<%= @user.name %> >> <%= @request.customer.name %>
+<div class="block my-8 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+  <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Request Details</h5>
+  <div class="my-2">
+    <h3 class="mb-2 text-xl"><%= "Service".pluralize(@request.services.count) %></h3>
+    <div class="grid grid-cols-3">
+      <% @request.services.each do |service| %>
+        <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= service.name %></h5>
+          <%# TODO: Need to build out service summary %>
+        </a>
+      <% end %>
+    </div>
+    <div class="my-4">
+      <h3 class="mb-2 text-xl">Location</h3>
+      <%= link_to @request.google_map_url, target: "_blank", class: "flex items-center" do %>
+        <%= @request.location %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+        </svg>
+      <% end %>
+    </div>
+    <div class="my-4">
+      <h3 class="mb-2 text-xl">Access Details</h3>
+      <p><%= @request.access_details %></p>
+    </div>
+  </div>
+</div>
+<div class="block my-8 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+  <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payout Summary</h5>
+  <div class="my-2">
+    <h3 class="mb-2 text-xl"></h3>
+    This is the amount of money you'll be paid!!!!
+  </div>
+</div>
+<div class="my-4 flex text-center">
+  <%= link_to "Confirm", vendor_request_claims_path(@request), data: { turbo_method: :post }, class: "w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+</div>
+<div class="my-4 flex text-center">
+  <%= link_to "Cancel", vendor_requests_path(filter: :available), class: "w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>
+</div>

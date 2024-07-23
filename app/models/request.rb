@@ -1,5 +1,6 @@
 class Request < ApplicationRecord
-  enum :status, { requested: 0, assigned: 1, completed: 2, expired: 3 }, default: :requested
+  enum :status, { awaiting_payment: 0, available: 1, assigned: 2, completed: 3, expired: 4 }, default: :awaiting_payment
+  
   belongs_to :customer, class_name: "User"
   belongs_to :vendor, class_name: "User", required: false
   belongs_to :vehicle
@@ -20,6 +21,10 @@ class Request < ApplicationRecord
   validate :vendor_is_not_customer
 
   after_create :assign_request_number
+
+  def google_map_url
+    "https://maps.google.com/?q=#{location_lat},#{location_long}"
+  end
 
   def vendor_is_not_customer
     unless vendor.nil?

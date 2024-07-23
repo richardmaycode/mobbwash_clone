@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   namespace :vendor do
     resource :dashboard, only: [ :show ]
     resources :users, only: [ :show ]
-    resources :requests, only: [ :index ]
+    resources :requests, only: [ :index, :show ] do
+      resources :claims, only: [ :new, :create ], module: :requests
+    end
   end
 
   namespace :c do
