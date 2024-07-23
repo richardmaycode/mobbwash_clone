@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   #
 
   namespace :vendor do
+    resource :dashboard, only: [ :show ]
     resources :users, only: [ :show ]
     resources :requests, only: [ :index ]
   end

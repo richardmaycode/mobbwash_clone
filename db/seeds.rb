@@ -20,13 +20,24 @@ Vehicle.create! nickname: "Roach", make: "Tesla", model: "Model Y", color: "Red"
 
 Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - 5.days, completed: Time.zone.now - 5.days, customer_id: 1, vehicle_id: 1, status: "completed"
 Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - 1.days, customer_id: 1, vehicle_id: 1, status: "expired"
-150.times do
+25.times do
   Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now, customer_id: 1, vehicle_id: 1
+end
+
+# Fake Completed Jobs
+25.times do
+  days_ago = rand(4..25)
+  Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - days_ago.days, completed: Time.zone.now - days_ago.days, customer_id: 1, vehicle_id: 1, vendor_id: 2, status: "completed"
+end
+
+# Fake Assigned Jobs
+25.times do
+  Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now, customer_id: 1, vehicle_id: 1, vendor_id: 2, status: "assigned"
 end
 
 count = 0
 
-152.times do
+72.times do
   count += 1
   RequestService.create! request_id: count, service_id: rand(1..4)
 end

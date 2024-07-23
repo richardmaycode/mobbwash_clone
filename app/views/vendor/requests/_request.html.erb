@@ -1,5 +1,8 @@
-<div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= request.request_number %></h5>
+<div class="block p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
+    <div class="mb-2 flex justify-between items-start">
+        <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">#<%= request.request_number %></h5>
+        <div class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><%= request.status %></div>
+    </div>
     <div>
         <p>
             Location: <%= request.location %>

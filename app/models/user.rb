@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :vehicles
   has_many :requests, foreign_key: "customer_id"
+  has_many :assigned_requests, foreign_key: "vendor_id", class_name: "Request"
 
   normalizes :email, with: ->(email) { email.strip.downcase }
   validates :email, presence: true, uniqueness: true
