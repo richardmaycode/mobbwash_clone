@@ -1,11 +1,9 @@
 <h1 class="text-4xl"><%= @page_title %> Requests</h1>
 <div class="flex flex-col">
-    <div class="grid w-full gap-6 md:grid-cols-1 my-6 grow-0">
-        <%= render @requests %>
-    </div>
+  <div class="grid w-full gap-6 md:grid-cols-1 my-6 grow-0">
+    <%= render @requests %>
+  </div>
 </div>
-
-
-<div class="my-4">
-    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+<div class="my-4 flex justify-center">
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>

@@ -1,9 +1,8 @@
 <h1 class="text-4xl my-4">Wash Requests</h1>
 <div class="grid w-full gap-6 md:grid-cols-2">
-    <%= render @requests %>
+  <%= render @requests %>
 </div>
-<div class="my-8">
-<%== pagy_nav(@pagy) %>
+<div class="my-8 flex justify-center">
+  <%== pagy_nav(@pagy) %>
 </div>
-
 <%= render partial: "shared/bottom_action_button", locals: { btm_btn_text: "Request Wash", btm_btn_link: new_customer_user_request_path(@user) } %>
