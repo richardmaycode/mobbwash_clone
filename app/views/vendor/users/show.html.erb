@@ -1,0 +1,70 @@
+<div class="flex flex-col gap-4">
+  <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Customer Details</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400"><%= @user.name %> - Member Since: <%= @user.created_at.strftime("%A %d %b %Y") %></p>
+  </div>
+  <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Contact Details</h5>
+    <!-- Contact Details --> <%# Convert to inline form %>
+    <div class="my-4">
+      <%= label_tag :address_line_1, "Street Address", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= text_field_tag :address_line_1, @user.address_line_1 , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+    </div>
+    <div class="my-4">
+      <%= label_tag :address_line_1, "Apt/Suite/Box #", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= text_field_tag :address_line_1, @user.address_line_2 , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="my-4">
+        <%= label_tag :city, "Apt/Suite/Box #", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= text_field_tag :city, @user.city , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+      </div>
+      <div class="my-4">
+        <%= label_tag :state, "Apt/Suite/Box #", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= text_field_tag :state, @user.state , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+      </div>
+      <div class="my-4">
+        <%= label_tag :postal_code, "Apt/Suite/Box #", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= text_field_tag :postal_code, @user.postal_code , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+      </div>
+    </div>
+    <div class="my-4">
+      <%= label_tag :postal_code, "Phone Number", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= text_field_tag :postal_code, @user.phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+    </div>
+    <div class="my-4">
+      <%= label_tag :email, "Email", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= text_field_tag :email, @user.email , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+    </div>
+  </div>
+  <!--Password Reset --> <%# TODO: Enable Reset Function %>
+  <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Password</h5>
+    <div class="my-4">
+      <%= label_tag :postal_code, "Current Password", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= password_field_tag :email, { } , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+    </div>
+    <div class="my-4">
+      <%= label_tag :postal_code, "New Password", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= text_field_tag :email, { } , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+    </div>
+    <div class="my-4">
+      <%= label_tag :postal_code, "Confirm New Password", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= text_field_tag :email, { } , class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", disabled: true %>
+    </div>
+  </div>
+  <!-- Payment Details for Customer -->
+  <% if @user.customer? %>
+    <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payment Details</h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    </div>
+  <% end%>
+  <!-- Payout Details for Vendor -->
+  <% if @user.vendor? %>
+    <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payout Details</h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    </div>
+  <% end%>
+</div>

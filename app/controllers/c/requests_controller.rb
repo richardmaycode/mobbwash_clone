@@ -2,7 +2,7 @@ module C
   class RequestsController < ApplicationController
     before_action :set_user
     def index
-      @pagy, @requests = pagy(Request.where(customer_id: 1))
+      @pagy, @requests = pagy(Request.includes(:services, :vehicle, :vendor).where(customer_id: 1))
     end
 
     def show

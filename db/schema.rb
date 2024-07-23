@@ -54,6 +54,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_19_144932) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "state"
+    t.string "postal_code"
+    t.string "phone_number"
     t.integer "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

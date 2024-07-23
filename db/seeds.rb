@@ -13,8 +13,8 @@ Service.create! name: "Basic Interior/Exterior", price: 65.50, active: true
 Service.create! name: "Interior/Exterior with Wax", price: 85.50, active: true
 Service.create! name: "Custom", price: 150.00, active: true
 
-User.create! name: "Richard Wise", email: "richard.wise@hey.com", password_digest: "Test123", user_type: 2
-User.create! name: "Jerrys Wash Shop", email: "Test@gmail.com", password_digest: "Test123", user_type: 1
+User.create! name: "Richard Wise", email: "richard.wise@hey.com", password_digest: "Test123", user_type: 2, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
+User.create! name: "Jerrys Wash Shop", email: "Test@gmail.com", password_digest: "Test123", user_type: 1, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
 Vehicle.create! nickname: "Noble Stead", make: "Chevy", model: "Bolt EUV", color: "Gray", license_plate: "TTT-X12", user_id: 1, default: true
 Vehicle.create! nickname: "Roach", make: "Tesla", model: "Model Y", color: "Red", license_plate: "XAX-776", user_id: 1, default: false
 
