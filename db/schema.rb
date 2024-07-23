@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_19_144932) do
     t.string "model"
     t.string "color"
     t.string "license_plate"
+    t.boolean "default"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

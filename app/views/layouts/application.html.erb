@@ -20,8 +20,10 @@
 
   <body>
     <%= render "shared/nav" %>
-    <main class="container mx-auto mt-4 px-5">
+    <main class="container mx-auto mt-4 px-5 max-w-full md:max-w-[900px]">
       <%= yield %>
     </main>
+    <%= render "shared/flash" %>
+    <%= render "shared/bottom_nav", locals: { action: @action } %>
   </body>
 </html>

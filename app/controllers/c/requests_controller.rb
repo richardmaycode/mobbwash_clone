@@ -5,6 +5,10 @@ module C
       @pagy, @requests = pagy(Request.where(customer_id: 1))
     end
 
+    def show
+      @request = Request.find(params[:id])
+    end
+
     def new
       @request = @user.requests.new
       @services = Service.active

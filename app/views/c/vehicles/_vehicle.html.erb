@@ -1,0 +1,23 @@
+<div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
+
+<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= vehicle.nickname %></h5>
+<!--<p class="font-normal text-gray-700 dark:text-gray-400"><%#= vehicle.merged_name %></p>-->
+<div>
+    <p>Make: <%= vehicle.make %></p>
+    <p>Model: <%= vehicle.model %></p>
+    <p>Color: <%= vehicle.color %></p>
+</div>
+
+<div class="inline-flex rounded-md shadow-sm">
+  <%= link_to "Edit", edit_c_user_vehicle_path(@user, vehicle), class: "px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" %>
+  <%= link_to "Delete", c_user_vehicle_path(@user, vehicle), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"%>
+  <% if vehicle.default %>
+    <p class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg   focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white  dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+        Default
+    </p>
+  <% else %>
+    <%= link_to "Make Default", c_user_vehicle_default_path(@user, vehicle), data: { turbo_method: :post}, class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"%>
+  <% end %>
+</div>
+
+</div>

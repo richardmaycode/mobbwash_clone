@@ -1,0 +1,6 @@
+<h1 class="text-4xl">Edit Vehicle Details</h1>
+<% if @vehicle.requests.any? %>
+<p class="my-4">This vehicle has approints associated with it and so some details cannot be edited</p>
+<% end %>
+
+<%= render 'form' %>

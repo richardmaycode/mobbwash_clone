@@ -15,8 +15,11 @@ Rails.application.routes.draw do
   #
 
   namespace :c do
-    resources :users do
+    resources :users, only: [ :show ] do
       resources :requests, only: [ :index, :show, :new, :create ]
+      resources :vehicles do
+        resource :default, only: [ :create ], module: :vehicles
+      end
     end
   end
 end

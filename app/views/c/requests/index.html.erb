@@ -1,15 +1,9 @@
-<div class="py-4">
-    <%= link_to "Request Cleaning", new_c_user_request_path(@user), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
-</div>
-<div class="grid w-full gap-6 md:grid-cols-4">
-    <% @requests.each do |request| %>
-        <%= link_to c_user_request_path(@user, request), class: "block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" do %>
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Request #<%= request.request_number %></h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400">Service: <%= request.services.first.name %></p>
-        <% end %>
-
-    <% end %>
+<h1 class="text-4xl my-4">Wash Requests</h1>
+<div class="grid w-full gap-6 md:grid-cols-2">
+    <%= render @requests %>
 </div>
 <div class="my-8">
 <%== pagy_nav(@pagy) %>
 </div>
+
+<%= render partial: "shared/bottom_action_button", locals: { btm_btn_text: "Request Wash", btm_btn_link: new_c_user_request_path(@user) } %>

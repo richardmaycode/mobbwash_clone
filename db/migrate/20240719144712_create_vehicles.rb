@@ -6,6 +6,7 @@ class CreateVehicles < ActiveRecord::Migration[7.2]
       t.string :model
       t.string :color
       t.string :license_plate
+      t.boolean :default
       t.belongs_to :user, null: false, foreign_key: true
 
       t.timestamps

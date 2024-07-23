@@ -15,7 +15,8 @@ Service.create! name: "Custom", price: 150.00, active: true
 
 User.create! name: "Richard Wise", email: "richard.wise@hey.com", password_digest: "Test123", user_type: 2
 User.create! name: "Jerrys Wash Shop", email: "Test@gmail.com", password_digest: "Test123", user_type: 1
-Vehicle.create! nickname: "Noble Stead", make: "Chevy", model: "Bolt EUV", color: "Gray", license_plate: "TTT-X12", user_id: 1
+Vehicle.create! nickname: "Noble Stead", make: "Chevy", model: "Bolt EUV", color: "Gray", license_plate: "TTT-X12", user_id: 1, default: true
+Vehicle.create! nickname: "Roach", make: "Tesla", model: "Model Y", color: "Red", license_plate: "XAX-776", user_id: 1, default: false
 
 Request.create! access_details: "test", location: "Test", location_lat: 25.4, location_long: 26.2, scheduled: Time.zone.now - 5.days, completed: Time.zone.now - 5.days, customer_id: 1, vehicle_id: 1
 Request.create! access_details: "test", location: "Test", location_lat: 25.4, location_long: 26.2, scheduled: Time.zone.now - 1.days, customer_id: 1, vehicle_id: 1
