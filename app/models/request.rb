@@ -1,4 +1,5 @@
 class Request < ApplicationRecord
+  enum :status, { requested: 0, assigned: 1, completed: 2, expired: 3 }, default: :requested
   belongs_to :customer, class_name: "User"
   belongs_to :vendor, class_name: "User", required: false
   belongs_to :vehicle

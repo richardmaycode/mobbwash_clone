@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   #
   #
 
+  namespace :vendor do
+    resources :users, only: [ :show ]
+    resources :requests, only: [ :index ]
+  end
+
   namespace :c do
     resources :users, only: [ :show ] do
       resources :requests, only: [ :index, :show, :new, :create ]

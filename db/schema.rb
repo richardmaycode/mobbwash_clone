@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_19_144932) do
     t.float "location_long"
     t.datetime "scheduled"
     t.datetime "completed"
+    t.integer "status"
     t.bigint "customer_id", null: false
     t.bigint "vendor_id"
     t.bigint "vehicle_id", null: false

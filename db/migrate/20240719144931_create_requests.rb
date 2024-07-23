@@ -11,6 +11,8 @@ class CreateRequests < ActiveRecord::Migration[7.2]
       t.datetime :scheduled
       t.datetime :completed
 
+      t.integer :status
+
       t.references :customer, null: false
       t.references :vendor
       t.belongs_to :vehicle, null: false, foreign_key: true
