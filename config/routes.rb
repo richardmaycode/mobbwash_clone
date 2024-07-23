@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :c do
+  namespace :customer do
     resources :users, only: [ :show ] do
       resources :requests, only: [ :index, :show, :new, :create ]
       resources :vehicles do

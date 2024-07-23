@@ -1,9 +1,8 @@
-module C
+module Customer
   class VehiclesController < ApplicationController
     before_action :set_user
 
     def index
-      @action = { btm_btn_show: true, btm_btn_txt: "Add Vehicle", btm_btn_link: new_c_user_vehicle_path(@user) }
       @vehicles = @user.vehicles
     end
 
@@ -19,7 +18,7 @@ module C
       @vehicle = @user.vehicles.new(vehicle_params)
 
       if @vehicle.save
-        redirect_to [ :c, @user, :vehicles ]
+        redirect_to [ :customer, @user, :vehicles ]
       else
         render :new
       end
@@ -33,7 +32,7 @@ module C
       @vehicle = Vehicle.find(params[:id])
 
       if @vehicle.update(vehicle_params)
-        redirect_to [ :c, @user, :vehicles ]
+        redirect_to [ :customer, @user, :vehicles ]
       else
         render :edit, status: :unprocessable_entity
       end
@@ -43,10 +42,10 @@ module C
       @vehicle = Vehicle.find(params[:id])
       if @vehicle.default
         puts "I'm Default!!!"
-        redirect_to [ :c, @user, :vehicles ], notice: "Cannot delete default vehicle, set another vehicle to default before attempting deletion."
+        redirect_to [ :customer, @user, :vehicles ], notice: "Cannot delete default vehicle, set another vehicle to default before attempting deletion."
       else
         @vehicle.destroy
-        redirect_to [ :c, @user, :vehicles ]
+        redirect_to [ :customer, @user, :vehicles ]
       end
 
 

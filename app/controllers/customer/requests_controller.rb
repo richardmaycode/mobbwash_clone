@@ -1,4 +1,4 @@
-module C
+module Customer
   class RequestsController < ApplicationController
     before_action :set_user
     def index
@@ -19,7 +19,7 @@ module C
       @services = Service.active
 
       if @request.save
-        redirect_to [ :c, @user, :requests ]
+        redirect_to [ :customer, @user, :requests ]
       else
         render :new
       end

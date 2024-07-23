@@ -1,9 +1,0 @@
-<h1 class="text-4xl">Your Garage</h1>
-<p class="my-4">Vehicles you have added to your account appear here. You can adjust details like color and license plate.</p>
-<div class="flex flex-col">
-    <div class="grid w-full gap-6 md:grid-cols-2 my-6 grow-0">
-        <%= render @vehicles %>
-    </div>
-</div>
-
-<%= render partial: "shared/bottom_action_button", locals: { btm_btn_text: "Add Vehicle", btm_btn_link: new_c_user_vehicle_path(@user) } %>
