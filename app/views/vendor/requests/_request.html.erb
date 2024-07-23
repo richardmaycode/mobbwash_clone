@@ -4,10 +4,10 @@
     <div class="<%= classes_for_request_status(request.status) %>text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= request.status.upcase %></div>
   </div>
   <div>
-    <div>
-      Location: <%= request.location %>
-      <br />
-      Vehicle Details: <%= request.vehicle.merged_name%>
+    <div class="flex flex-col gap-4">
+      <div><span class="font-bold">Date Requested:</span> <%= request.scheduled.strftime("%A, %b %d %Y") %></div>
+      <div><span class="font-bold">Location:</span> <%= request.location %></div>
+      <div><span class="font-bold">Vehicle Details:</span><%= request.vehicle.merged_name%></div>
     </div>
     <div class="grid md:grid-cols-3 grid-cols-1 sm:grid-cols-2 mt-8 text-center">
       <%= link_to "View Details", vendor_request_path(request), class: "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>

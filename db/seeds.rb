@@ -23,7 +23,7 @@ Request.create! access_details: "test", location: Faker::Address.full_address, l
 
 # Fake Available Jobs
 25.times do
-  Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now, customer_id: 1, vehicle_id: 1, status: "available"
+  Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now + rand(0..4).days, customer_id: 1, vehicle_id: 1, status: "available"
 end
 
 # Fake Completed Jobs
@@ -34,7 +34,7 @@ end
 
 # Fake Assigned Jobs
 25.times do
-  Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now, customer_id: 1, vehicle_id: 1, vendor_id: 2, status: "assigned"
+  Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now + rand(0..4).days, customer_id: 1, vehicle_id: 1, vendor_id: 2, status: "assigned"
 end
 
 count = 0

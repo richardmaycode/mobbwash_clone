@@ -8,13 +8,13 @@ module Vendor
 
       case filter
       when "assigned"
-        @pagy, @requests = pagy(@user.assigned_requests.includes(:services, :vehicle, :customer).where(status: filter), limit: 10)
+        @pagy, @requests = pagy(@user.assigned_requests.includes(:services, :vehicle, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
         @page_title = "Active"
       when "completed"
-        @pagy, @requests = pagy(@user.assigned_requests.includes(:services, :vehicle, :customer).where(status: filter), limit: 10)
+        @pagy, @requests = pagy(@user.assigned_requests.includes(:services, :vehicle, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
         @page_title = "Completed"
       else
-        @pagy, @requests = pagy(Request.includes(:services, :vehicle, :customer).where(status: filter), limit: 10)
+        @pagy, @requests = pagy(Request.includes(:services, :vehicle, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
         @page_title = "Available"
       end
     end
