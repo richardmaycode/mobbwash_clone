@@ -37,6 +37,8 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "pagy", "~> 9.0"
+gem "chartkick"
+gem "groupdate"
 
 
 group :development, :test do

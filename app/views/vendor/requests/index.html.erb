@@ -1,4 +1,11 @@
-<h1 class="text-4xl"><%= @page_title %> Requests</h1>
+<div class="flex justify-between">
+  <h1 class="text-4xl"><%= @page_title %> Requests</h1>
+  <div class="inline-flex rounded-md shadow-sm" role="group">
+    <%= link_to "Available", vendor_requests_path(filter: "available") ,class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"%>
+    <%= link_to "Active", vendor_requests_path(filter: "assigned") ,class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"%>
+    <%= link_to "Complete", vendor_requests_path(filter: "completed") ,class: "px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"%>
+  </div>
+</div>
 <div class="flex flex-col">
   <div class="grid w-full gap-6 md:grid-cols-1 my-6 grow-0">
     <%= render @requests %>
@@ -7,3 +14,4 @@
 <div class="my-4 flex justify-center">
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+<%= params %>

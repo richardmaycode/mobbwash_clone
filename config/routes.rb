@@ -14,6 +14,39 @@ Rails.application.routes.draw do
   #
   #
 
+  namespace :admin do
+    get "services/index"
+    get "services/show"
+    get "services/new"
+    get "services/edit"
+    get "services/delete"
+    get "vendors/index"
+    get "vendors/show"
+    get "vendors/new"
+    get "vendors/edit"
+    get "vendors/delete"
+    get "customers/index"
+    get "customers/show"
+    get "customers/new"
+    get "customers/edit"
+    get "customers/delete"
+    resources :customers
+    resources :vendors
+    resources :vehicles
+    resources :services
+    resources :requests
+  end
+
+
+  namespace :customer do
+    resources :users, only: [ :show ] do
+      resources :requests, only: [ :index, :show, :new, :create ]
+      resources :vehicles do
+        resource :default, only: [ :create ], module: :vehicles
+      end
+    end
+  end
+
   namespace :vendor do
     resource :dashboard, only: [ :show ]
     resources :users, only: [ :show ]
@@ -23,15 +56,6 @@ Rails.application.routes.draw do
     resources :requests, only: [ :index, :show ] do
       resources :claims, only: [ :new, :create ], module: :requests
       resources :cancellations, only: [ :new, :create ], module: :requests
-    end
-  end
-
-  namespace :customer do
-    resources :users, only: [ :show ] do
-      resources :requests, only: [ :index, :show, :new, :create ]
-      resources :vehicles do
-        resource :default, only: [ :create ], module: :vehicles
-      end
     end
   end
 end
