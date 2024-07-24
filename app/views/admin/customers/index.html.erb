@@ -9,9 +9,8 @@
     <% else %>
       <div class="flex justify-center my-8">No Results Found</div>
     <% end %>
+  <% end %>
+  <div class="flex justify-center my-8">
+    <%== pagy_nav(@pagy) %>
   </div>
-<% end %>
-<div class="flex justify-center my-8">
-  <%== pagy_nav(@pagy) %>
-</div>
 </div>

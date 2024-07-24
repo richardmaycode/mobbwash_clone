@@ -1,5 +1,7 @@
 class Admin::ServicesController < ApplicationController
+  layout "admin"
   def index
+    @services = Service.all
   end
 
   def show
@@ -17,6 +19,6 @@ class Admin::ServicesController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
   end
 end
