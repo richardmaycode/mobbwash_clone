@@ -13,33 +13,58 @@ Service.create! name: "Basic Interior/Exterior", price: 65.50, active: true
 Service.create! name: "Interior/Exterior with Wax", price: 85.50, active: true
 Service.create! name: "Custom", price: 150.00, active: true
 
-User.create! name: "Richard Wise", email: "richard.wise@hey.com", password_digest: "Test123", user_type: 2, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
-User.create! name: "Jerrys Wash Shop", email: "Test@gmail.com", password_digest: "Test123", user_type: 1, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
-Vehicle.create! nickname: "Noble Stead", make: "Chevy", model: "Bolt EUV", color: "Gray", license_plate: "TTT-X12", user_id: 1, default: true
-Vehicle.create! nickname: "Roach", make: "Tesla", model: "Model Y", color: "Red", license_plate: "XAX-776", user_id: 1, default: false
+# Fake Customers
+if Rails.env.development?
+  100.times do
+    User.create! name: Faker::Name.name, email: Faker::Internet.email, password_digest: Faker::Crypto.md5, user_type: 2, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
+  end
 
-Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - 5.days, completed: Time.zone.now - 5.days, customer_id: 1, vehicle_id: 1, status: "completed"
-Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - 1.days, customer_id: 1, vehicle_id: 1, status: "expired"
+  25.times do
+    company_name = Faker::Company.name + " " + Faker::Company.suffix
+    User.create! name: company_name, email: Faker::Internet.email, password_digest: Faker::Crypto.md5, user_type: 1, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
+  end
 
-# Fake Available Jobs
-25.times do
-  Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now + rand(0..4).days, customer_id: 1, vehicle_id: 1, status: "available"
-end
+  User.create! name: "Jerrys Wash Shop", email: "Test@gmail.com", password_digest: "Test123", user_type: 1, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
 
-# Fake Completed Jobs
-25.times do
-  days_ago = rand(4..25)
-  Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - days_ago.days, completed: Time.zone.now - days_ago.days, customer_id: 1, vehicle_id: 1, vendor_id: 2, status: "completed"
-end
+  user_count = 1
 
-# Fake Assigned Jobs
-25.times do
-  Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now + rand(0..4).days, customer_id: 1, vehicle_id: 1, vendor_id: 2, status: "assigned"
-end
+  100.times do
+    vehicle_1 = Faker::Vehicle.make
+    vehicle_2 = Faker::Vehicle.make
 
-count = 0
+    Vehicle.create! nickname: Faker::Hipster.words, make: vehicle_1, model: Faker::Vehicle.model(make_of_model: vehicle_1), color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: user_count, default: true
+    Vehicle.create! nickname: Faker::Hipster.words, make: vehicle_2, model: Faker::Vehicle.model(make_of_model: vehicle_2), color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: user_count, default: false
 
-72.times do
-  count += 1
-  RequestService.create! request_id: count, service_id: rand(1..4)
+    user_count += 1
+  end
+
+  Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - 5.days, completed: Time.zone.now - 5.days, customer_id: 1, vehicle_id: 1, status: "completed"
+  Request.create! access_details: "test", location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - 1.days, customer_id: 1, vehicle_id: 1, status: "expired"
+
+  # Fake Available Jobs
+  1000.times do
+    user_id = rand(1..100)
+    Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now + rand(0..4).days, customer_id: user_id, vehicle_id: User.find(user_id).vehicles.sample.id, status: "available"
+  end
+
+  # Fake Completed Jobs
+  1000.times do
+    days_ago = rand(4..25)
+    user_id = rand(1..100)
+    Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now - days_ago.days, completed: Time.zone.now - days_ago.days, customer_id: user_id, vehicle_id: User.find(user_id).vehicles.sample.id, vendor_id: rand(101..126), status: "completed"
+  end
+
+  # Fake Assigned Jobs
+  1000.times do
+    user_id = rand(1..100)
+    Request.create! access_details: Faker::Lorem.sentence(word_count: rand(10..20)), location: Faker::Address.full_address, location_lat: Faker::Address.latitude, location_long: Faker::Address.longitude, scheduled: Time.zone.now + rand(0..4).days, customer_id: user_id, vehicle_id: User.find(user_id).vehicles.sample.id, vendor_id: rand(101..126), status: "assigned"
+  end
+
+  request_count = 0
+
+  3000.times do
+    request_count += 1
+    RequestService.create! request_id: request_count, service_id: rand(1..4)
+  end
+
 end

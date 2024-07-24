@@ -15,21 +15,6 @@ Rails.application.routes.draw do
   #
 
   namespace :admin do
-    get "services/index"
-    get "services/show"
-    get "services/new"
-    get "services/edit"
-    get "services/delete"
-    get "vendors/index"
-    get "vendors/show"
-    get "vendors/new"
-    get "vendors/edit"
-    get "vendors/delete"
-    get "customers/index"
-    get "customers/show"
-    get "customers/new"
-    get "customers/edit"
-    get "customers/delete"
     resources :customers
     resources :vendors
     resources :vehicles
