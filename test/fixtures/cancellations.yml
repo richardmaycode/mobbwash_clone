@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vendor: one
+  request_belongs_to: MyString
+  reported: 2024-07-24 09:53:14
+  notes: MyText
+
+two:
+  vendor: two
+  request_belongs_to: MyString
+  reported: 2024-07-24 09:53:14
+  notes: MyText

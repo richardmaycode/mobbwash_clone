@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_07_19_144932) do
+ActiveRecord::Schema[7.2].define(version: 2024_07_24_135314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cancellations", force: :cascade do |t|
+    t.bigint "vendor_id"
+    t.bigint "request_id", null: false
+    t.datetime "reported"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_cancellations_on_request_id"
+    t.index ["vendor_id"], name: "index_cancellations_on_vendor_id"
+  end
 
   create_table "request_services", force: :cascade do |t|
     t.bigint "request_id", null: false
@@ -31,6 +42,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_19_144932) do
     t.float "location_long"
     t.datetime "scheduled"
     t.datetime "completed"
+    t.text "completion_notes"
     t.integer "status"
     t.bigint "customer_id", null: false
     t.bigint "vendor_id"
@@ -78,6 +90,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_19_144932) do
     t.index ["user_id"], name: "index_vehicles_on_user_id"
   end
 
+  add_foreign_key "cancellations", "requests"
   add_foreign_key "request_services", "requests"
   add_foreign_key "request_services", "services"
   add_foreign_key "requests", "vehicles"

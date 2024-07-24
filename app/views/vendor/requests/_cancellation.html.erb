@@ -1,0 +1,14 @@
+<%# locals: (cancellation:) %>
+<div class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800">
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Cancellation Details</h5>
+  <div class="grid grid-cols-1 gap-4 mt-4">
+    <div>
+      <%= label_tag :canceled_on, "Canceled On", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= cancellation.reported.strftime("%A, %B %d %Y")%>
+    </div>
+    <div class="">
+      <%= label_tag :notes, "Cancellation notes", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= cancellation.notes %>
+    </div>
+  </div>
+</div>

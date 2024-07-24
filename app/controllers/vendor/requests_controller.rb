@@ -28,7 +28,7 @@ module Vendor
 
     private
     def set_request
-      @request = Request.includes(:services, :vehicle, :customer).find(params[:id])
+      @request = Request.includes(:services, :vehicle, :customer, :cancellation).find(params[:id])
     end
   end
 end

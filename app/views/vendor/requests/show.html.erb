@@ -1,1 +1,29 @@
-<%= @request.request_number %>
+<div class="my-4">
+  <%=link_to "Return to all Requests", vendor_requests_path(filter: @request.status), class: "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800" %>
+</div>
+<h1 class="text-4xl mb-4">Request Details: #<%= @request.request_number %></h1>
+<div class="flex flex-col gap-4">
+  <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800">
+    <div class="mb-2 flex justify-between items-start">
+      <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">#<%= @request.request_number %></h5>
+      <div class="<%= classes_for_request_status(@request.status) %>text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= @request.status.upcase %></div>
+    </div>
+    <div class="grid md:grid-cols-3 grid-cols-1 sm:grid-cols-2 mt-8 text-center">
+    </div>
+  </div>
+  <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Actions</h5>
+    <div class="grid md:grid-cols-3 grid-cols-1 sm:grid-cols-2 mt-4 text-center">
+      <% if @request.available? %>
+        <%= link_to "Claim", new_vendor_request_claim_path(@request), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+      <% elsif @request.assigned? %>
+        <%= link_to "Mark Complete", new_vendor_request_completion_path(@request), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+        <%= link_to "Cancel", new_vendor_request_cancellation_path(@request), class: "text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900" %>
+      <% end %>
+    </div>
+  </div>
+  <!-- Cancellation Details -->
+  <% if @request.cancellation.present? %>
+    <%= render partial: "cancellation", locals: { cancellation: @request.cancellation } %>
+  <% end %>
+</div>

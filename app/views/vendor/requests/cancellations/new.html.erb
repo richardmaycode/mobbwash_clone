@@ -1,0 +1,47 @@
+<h1 class="text-4xl mb-4">Cancel Job #<%= @request.request_number %></h1>
+<%= form_with model: [:vendor, @request, @cancellation], data: { controller: "quick-options"} do |f| %>
+  <% if @cancellation.errors.any? %>
+    <div id="error_explanation" class="my-4 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+      <h2 class="text-2xl font-bold">Cancellation not saved!</h2>
+      <ul class="list-disc list-inside my-4">
+        <% @cancellation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :vendor_id, value: User.second.id %> <%# FIXME: Reference current user not static value %>
+  <%= f.hidden_field :reported, value: DateTime.current %>
+  <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <h2 class="text-2xl">Details</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="my-4">
+        <%= f.label :customer, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= @request.customer.name %>
+      </div>
+      <div class="my-4">
+        <%= f.label :vendor, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= @request.vendor.name %>
+      </div>
+      <div class="my-4">
+        <%= f.label :cancelling_on, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= Date.current.strftime("%A, %B %d %Y") %>
+      </div>
+    </div>
+  </div>
+  <div class="my-4">
+    <%= f.label :Reason_for_cancellation, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+    <%= f.text_area :notes, rows: 4, data: { "quick-options-target": "output" }, class: "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
+  </div>
+  <div>
+    <% Cancellation::CANCELLATION_REASONS.each do |key, value| %>
+      <%= button_tag key, data: { action: "quick-options#fill", value: value }, class: "px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+    <% end %>
+  </div>
+  <div class="my-4">
+    <%= f.submit "Cancel Job", class: "w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+  </div>
+<% end %>
+<div class="my-4">
+  <%= link_to "Cancel", vendor_request_path(@request), class: "block text-center w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>
+</div>

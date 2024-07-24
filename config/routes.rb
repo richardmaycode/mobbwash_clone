@@ -17,8 +17,12 @@ Rails.application.routes.draw do
   namespace :vendor do
     resource :dashboard, only: [ :show ]
     resources :users, only: [ :show ]
+    namespace :completions do
+      resources :requests, only: [ :edit, :update ]
+    end
     resources :requests, only: [ :index, :show ] do
       resources :claims, only: [ :new, :create ], module: :requests
+      resources :cancellations, only: [ :new, :create ], module: :requests
     end
   end
 

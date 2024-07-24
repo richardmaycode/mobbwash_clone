@@ -11,6 +11,8 @@ class CreateRequests < ActiveRecord::Migration[7.2]
       t.datetime :scheduled
       t.datetime :completed
 
+      t.text :completion_notes
+
       t.integer :status
 
       t.references :customer, null: false
