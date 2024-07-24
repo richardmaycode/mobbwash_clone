@@ -3,7 +3,7 @@ class Admin::CustomersController < ApplicationController
 
   before_action :set_customer, only: %i[show edit update destroy]
   def index
-    @pagy, @customers = params.has_key?(:query) ? pagy(User.all.customer.where("name LIKE ?", "%#{params[:query]}%")) : pagy(User.all.customer.where("name LIKE ?", "%#{params[:search]}%"))
+    @pagy, @customers = params.has_key?(:query) ? pagy(User.all.customer.where("name LIKE ?", "%#{params[:query]}%")) : pagy(User.all.customer)
 
     if turbo_frame_request?
       render partial: "customers", customers: @customers

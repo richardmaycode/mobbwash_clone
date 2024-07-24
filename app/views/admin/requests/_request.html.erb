@@ -1,0 +1,18 @@
+<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    <%= request.request_number %>
+  </th>
+  <td class="px-6 py-4">
+    <%= request.customer.name %>  <%# TODO: Link to customer show  %>
+  </td>
+  <td class="px-6 py-4">
+    <%= request.vendor.present? ? request.vendor.name : "Unassigned" %> <%# TODO: Link to vendor show  %>
+  </td>
+  <td class="px-6 py-4">
+    <%= request.status %>
+  </td>
+  <td class="px-6 py-4">
+    <%= link_to "Edit",edit_admin_request_path(request), class: "px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
+    <%#= link_to service.active ? "Deactivate" : "Activate ",edit_admin_service_path(service), class: "px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
+  </td>
+</tr>
