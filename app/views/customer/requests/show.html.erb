@@ -1,31 +1,28 @@
 <h1 class="text-4xl"> Wash Request Details </h1>
 <h2 class="text-2xl">Request #: <%= @request.request_number %></h2>
-
-<div class="my-4">
-    <h3 class="text-xl">Services</h3>
-    <% @request.services.each do |service| %>
-        <%= service.name %>
-    <% end %>
-<div>
-
-<div class="my-4">
-    <h3 class="text-xl">Vehicle</h3>
-    <%= @request.vehicle.nickname %>
-</div>
-
-<div class="my-4">
-    <h3 class="text-xl">Location</h3>
-    <%= @request.location %>
-
-    <p><%= @request.access_details %></p>
-</div>
-
-<div class="my-4">
-    <h3 class="text-xl">Payment Details</h3>
-    <%= @request.vehicle.nickname %>
-</div>
-
-<div class="my-4">
-    <h3 class="text-xl">Vendor Details</h3>
-    <%= @request.vehicle.nickname %>
+<div class="flex flex-col gap-4">
+  <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Summary</h5>
+    </a>
+    <div class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= @request.location %> <br/>
+      <%= @request.access_details %></div>
+  </div>
+  <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payment Details</h5>
+    </a>
+    <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</div>
+  </div>
+  <!--Vendor Card -->
+  <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Vendor Details</h5>
+    </a>
+    <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      <div class="grid grid-cols-3">
+        <%= label %>
+      </div>
+    </div>
+  </div>
 </div>

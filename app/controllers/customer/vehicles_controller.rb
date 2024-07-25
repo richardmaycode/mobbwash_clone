@@ -20,7 +20,7 @@ module Customer
       @vehicle = @user.vehicles.new(vehicle_params)
 
       if @vehicle.save
-        redirect_to [ :customer, :vehicles ]
+        redirect_to [ :customer, :vehicles ], notice: "Vehicle successfully created"
       else
         render :new
       end
@@ -34,7 +34,7 @@ module Customer
       @vehicle = Vehicle.find(params[:id])
 
       if @vehicle.update(vehicle_params)
-        redirect_to [ :customer, @user, :vehicles ]
+        redirect_to [ :customer, :vehicles ]
       else
         render :edit, status: :unprocessable_entity
       end
@@ -43,10 +43,10 @@ module Customer
     def destroy
       @vehicle = Vehicle.find(params[:id])
       if @vehicle.default
-        redirect_to [ :customer, @user, :vehicles ], notice: "Cannot delete default vehicle, set another vehicle to default before attempting deletion."
+        redirect_to [ :customer, :vehicles ], notice: "Cannot delete default vehicle, set another vehicle to default before attempting deletion."
       else
         @vehicle.destroy
-        redirect_to [ :customer, @user, :vehicles ]
+        redirect_to [ :customer, :vehicles ]
       end
 
 

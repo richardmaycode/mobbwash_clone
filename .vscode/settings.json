@@ -21,7 +21,8 @@
     
     "files.associations": {
     "*.html.erb": "erb"
-},
+    },
 
-
+"editor.fontFamily": "Fira Code",
+"editor.fontLigatures": true,
 }

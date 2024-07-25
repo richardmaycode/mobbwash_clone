@@ -1,7 +1,10 @@
 <div class="flex flex-col gap-4">
   <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Customer Details</h5>
-    <p class="font-normal text-gray-700 dark:text-gray-400"><%= @user.name %> - Member Since: <%= @user.created_at.strftime("%A %d %b %Y") %></p>
+    <div class="font-normal text-lg text-gray-900 dark:text-white"><%= @user.name %></div>
+    <div class="font-normal text-base text-gray-700 dark:text-gray-400">
+      Member Since: <%= @user.created_at.strftime("%A %d %b %Y") %>
+    </div>
   </div>
   <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Contact Details</h5>
