@@ -6,7 +6,7 @@ class Vehicle < ApplicationRecord
   belongs_to :user
   has_many :requests
 
-  validates :nickname, presence: true
+  validates :nickname, presence: true, uniqueness: { scope: :user_id, case_sensitive: false, message: "was used on different vehicle already" }
   validates :make, presence: true
   validates :model, presence: true
   validates :color, presence: true

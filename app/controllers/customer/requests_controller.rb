@@ -22,7 +22,7 @@ module Customer
       if @request.save
         redirect_to new_customer_payment_path(request_id: @request.id), notice: "Request successfully created!"
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 

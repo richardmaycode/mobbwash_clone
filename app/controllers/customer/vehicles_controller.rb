@@ -13,16 +13,16 @@ module Customer
     end
 
     def new
-      @vehicle = @user.vehicles.new
+      @vehicle = Vehicle.new(user_id: @user.id)
     end
 
     def create
-      @vehicle = @user.vehicles.new(vehicle_params)
+      @vehicle = Vehicle.new(vehicle_params.merge(user_id: @user.id))
 
       if @vehicle.save
         redirect_to [ :customer, :vehicles ], notice: "Vehicle successfully created"
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
