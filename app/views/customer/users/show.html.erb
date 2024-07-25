@@ -19,7 +19,16 @@
   <% if @user.customer? %>
     <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payment Details</h5>
-      <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+      <div class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div class="table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <div class="table-row">
+            <div class="table-cell px-6 py-3">Transaction #</div>
+            <div class="table-cell px-6 py-3">Outcome</div>
+            <div class="table-cell px-6 py-3">Memo</div>
+          </div>
+        </div>
+        <%= render partial: "customer/payments/payment", collection: @user.payments %>
+      </div>
     </div>
   <% end%>
 </div>

@@ -1,0 +1,6 @@
+<%= form_with model: [:customer, @payment] do |f| %>
+  <%= f.select :outcome, options_for_select(Payment.outcomes.map { |key, value| [key.titleize, Payment.outcomes.key(value)] }, f.object.outcome), { } ,class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
+  <%= f.hidden_field :user_id, value: Current.user.id %>
+  <%= f.hidden_field :memo, value: "Payment for Request: ##{@request.request_number}"%>
+  <%= f.button :submit, name: "request_id", value: @request.id %>
+<% end %>

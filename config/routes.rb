@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       resources :password_resets, only: [ :new, :create ]
     end
     resources :contact_details, only: [ :edit, :update ]
+    resources :payments, only: [ :index, :new, :create ]
   end
 
   # Vendor Views
