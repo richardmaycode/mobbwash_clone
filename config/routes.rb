@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   #
   #
 
+  resources :sessions, only: [ :new, :create ]
+  get "logout", to: "session#destroy", as: :logout
+
   namespace :admin do
     resources :customers
     resources :vendors

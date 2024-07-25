@@ -1,0 +1,23 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 content-center w-full">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm mb-4">
+    <%#= image_tag("logo-mark.svg", class: "mx-auto h-10 w-auto", alt: "Hotwire Calendar") %>
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-neutral-900">Sign in to your account</h2>
+  </div>
+  <div class="w-full sm:w-3/4 md:w-1/2 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto">
+    <%= form_with(url: sessions_path) do |form| %>
+      <div class="mb-4">
+        <%= form.label :email %>
+        <%= form.email_field :email, autofocus: true, placeholder: "you@yourco.com", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :password %>
+        <%= form.password_field :password, placeholder: "••••••••", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+      <%= form.submit "Log in", class: "w-full rounded-lg py-2 px-3 bg-rose-600 text-white hover:bg-rose-700 inline-block font-medium cursor-pointer" %>
+    <% end %>
+  </div>
+  <p class="mt-10 text-center text-sm text-neutral-500">
+    Not a member?
+    <a href="/registrations/new" class="font-semibold leading-6 text-pink-600 hover:text-pink-500">Create an account</a>
+  </p>
+</div>

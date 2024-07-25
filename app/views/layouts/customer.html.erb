@@ -21,5 +21,6 @@
       <%= yield %>
     </main>
     <%= render "shared/flash" %>
+    <%= render "shared/bottom_nav", locals: { action: @action } %>
   </body>
 </html>
