@@ -17,6 +17,8 @@ class User < ApplicationRecord
   validates_length_of :password, allow_blank: true, minimum: PASSWORD_MIN_LENGTH, maximum: PASSWORD_MAX_LENGTH, on: [ :create, :update ]
   validates_confirmation_of :password, allow_blank: true, on: :update
 
+  validates :address_line_1, :city, :state, :postal_code, :phone_number, presence: true, on: :update
+
   def role_portal
     case user_type
     when "admin"

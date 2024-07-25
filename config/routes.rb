@@ -36,7 +36,9 @@ Rails.application.routes.draw do
       resource :default, only: [ :create ], module: :vehicles
     end
     resources :users, only: [ :show ] do
+      resources :password_resets, only: [ :new, :create ]
     end
+    resources :contact_details, only: [ :edit, :update ]
   end
 
   # Vendor Views
