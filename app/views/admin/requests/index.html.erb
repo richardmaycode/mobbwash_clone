@@ -1,33 +1,25 @@
-<div class="flex justify-between content-start w-full my-8">
-  <h1 class="font-bold text-4xl">Requests</h1>
-  <%= render "search" %>
-  <%= link_to "Create Service", new_admin_request_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+<div class="grid grid-cols-3 my-8 content-center">
+  <h1 class="font-bold text-4xl col-span-1">Requests</h1>
+  <div class="flex w-full">
+    <%= render "search" %>
+  </div>
+  <div class="flex content-center justify-end">
+    <%= link_to "Create Service", new_admin_request_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+  </div>
 </div>
 <div class="relative overflow-x-auto">
-  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th scope="col" class="px-6 py-3">
-          Request #
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Customer
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Vendor
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Status
-        </th>
-        <th scope="col" class="px-6 py-3">
-          actions
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render "requests", requests: @requests %>
-    </tbody>
-  </table>
+  <div class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <div class="table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div class="table-row">
+        <div class="table-cell px-6 py-3">Request #</div>
+        <div class="table-cell px-6 py-3">Customer</div>
+        <div class="table-cell px-6 py-3">Vendor</div>
+        <div class="table-cell px-6 py-3">Status</div>
+        <div class="table-cell px-6 py-3">actions</div>
+      </div>
+    </div>
+    <%= render "requests", requests: @requests %>
+  </div>
   <div class="flex justify-center my-8">
     <%== pagy_nav(@pagy) %>
   </div>

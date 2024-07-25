@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "requests" do %>
+<%= turbo_frame_tag "requests",  class: "table-row-group" do %>
   <% if @requests.any? %>
     <%= render @requests %>
   <% else %>
