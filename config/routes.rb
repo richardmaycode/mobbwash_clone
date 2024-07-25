@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # Authentication
   resources :registrations, only: [ :new, :create ]
   resources :sessions, only: [ :new, :create ]
-  get "logout", to: "session#destroy", as: :logout
+  get "logout", to: "sessions#destroy", as: :logout
 
   # Admin Views
   namespace :admin do
@@ -31,11 +31,11 @@ Rails.application.routes.draw do
 
   # Customer Views
   namespace :customer do
+    resources :requests, only: [ :index, :show, :new, :create ]
+    resources :vehicles do
+      resource :default, only: [ :create ], module: :vehicles
+    end
     resources :users, only: [ :show ] do
-      resources :requests, only: [ :index, :show, :new, :create ]
-      resources :vehicles do
-        resource :default, only: [ :create ], module: :vehicles
-      end
     end
   end
 

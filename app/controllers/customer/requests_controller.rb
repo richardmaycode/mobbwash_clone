@@ -3,7 +3,7 @@ module Customer
     layout "customer"
     before_action :set_user
     def index
-      @pagy, @requests = pagy(Request.includes(:services, :vehicle, :vendor).where(customer_id: Current.user.id))
+      @pagy, @requests = pagy(@user.requests.includes(:services, :vehicle, :vendor))
     end
 
     def show
@@ -20,7 +20,7 @@ module Customer
       @services = Service.active
 
       if @request.save
-        redirect_to [ :customer, @user, :requests ]
+        redirect_to customer_requests_path, notice: "Request successfully created!"
       else
         render :new
       end
@@ -29,7 +29,7 @@ module Customer
     private
 
     def set_user
-      @user = User.includes(:vehicles).find(params[:user_id])
+      @user = Current.user
     end
 
 

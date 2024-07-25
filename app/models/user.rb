@@ -24,7 +24,7 @@ class User < ApplicationRecord
     when "vendor"
       vendor_dashoard_path
     when "customer"
-      Rails.application.routes.url_helpers.customer_user_requests_path(self)
+      Rails.application.routes.url_helpers.customer_requests_path(self)
     end
   end
 

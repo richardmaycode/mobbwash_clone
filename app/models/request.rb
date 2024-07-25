@@ -1,7 +1,7 @@
 class Request < ApplicationRecord
   enum :status, { awaiting_payment: 0, available: 1, assigned: 2, completed: 3, expired: 4, cancelled: 5 }, default: :awaiting_payment
 
-  belongs_to :customer, class_name: "User"
+  belongs_to :customer, class_name: "User", required: false
   belongs_to :vendor, class_name: "User", required: false
   belongs_to :vehicle
 

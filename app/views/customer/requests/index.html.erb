@@ -7,7 +7,7 @@
   <%= render partial: "customer/shared/empty_collection", 
       locals: { title: "You don't have any requests!", 
       content: "When you make a new request it will appear here. You can check the status of the request and view the vendor who will be completing the work.", 
-      url: new_customer_user_request_path(@user), 
+      url: new_customer_request_path, 
       url_text: "Request a wash" }%>
 <% else %>
   <div class="grid place-content-center h-auto mt-4">
@@ -17,10 +17,10 @@
         You must complete your profile before you can request wash.
       </p>
       <div class="flex gap-4">
-        <%= link_to new_customer_user_vehicle_path(@user), class:"inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
+        <%= link_to new_customer_vehicle_path, class:"inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
           Add a vehicle
         <% end if @user.missing_vehicle? %>
-        <%= link_to new_customer_user_vehicle_path(@user), class:"inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
+        <%= link_to new_customer_vehicle_path, class:"inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
           Add contact infomation
         <% end if @user.contact_info_incomplete? %>
       </div>
@@ -30,4 +30,4 @@
 <div class="my-8 flex justify-center">
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
-<%= render partial: "shared/bottom_action_button", locals: { btm_btn_text: "Request Wash", btm_btn_link: new_customer_user_request_path(@user) } %>
+<%= render partial: "shared/bottom_action_button", locals: { btm_btn_text: "Request Wash", btm_btn_link: new_customer_request_path(@user) } %>

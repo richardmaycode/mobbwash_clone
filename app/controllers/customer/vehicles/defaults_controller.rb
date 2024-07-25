@@ -2,14 +2,15 @@
   class Customer::Vehicles::DefaultsController < ApplicationController
     before_action :set_user
     def create
-      @user.vehicles.where(default: true).sole.update_column(:default, false)
+      @user.vehicles.update_all(default: false)
+
       Vehicle.find(params[:vehicle_id]).update_column(:default, true)
-      redirect_to customer_user_vehicles_path(@user)
+      redirect_to customer_vehicles_path(@user)
     end
 
     private
 
     def set_user
-      @user = User.find(params[:user_id])
+      @user = Current.user
     end
   end

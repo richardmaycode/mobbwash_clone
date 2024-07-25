@@ -1,5 +1,7 @@
 module Customer
   class VehiclesController < ApplicationController
+    layout "customer"
+
     before_action :set_user
 
     def index
@@ -15,6 +17,7 @@ module Customer
     end
 
     def create
+      # TODO: On vehicle create if it is the first vehicle make it the default (might go in the model)
       @vehicle = @user.vehicles.new(vehicle_params)
 
       if @vehicle.save
@@ -55,7 +58,7 @@ module Customer
     private
 
     def set_user
-      @user = User.find(params[:user_id])
+      @user = Current.user
     end
 
     def vehicle_params

@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_24_135314) do
     t.datetime "completed"
     t.text "completion_notes"
     t.integer "status"
-    t.bigint "customer_id", null: false
+    t.bigint "customer_id"
     t.bigint "vendor_id"
     t.bigint "vehicle_id", null: false
     t.datetime "created_at", null: false
