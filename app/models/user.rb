@@ -17,14 +17,14 @@ class User < ApplicationRecord
   validates_length_of :password, allow_blank: true, minimum: PASSWORD_MIN_LENGTH, maximum: PASSWORD_MAX_LENGTH, on: [ :create, :update ]
   validates_confirmation_of :password, allow_blank: true, on: :update
 
-  def assigned_portal
+  def role_portal
     case user_type
     when "admin"
       admin_users_path
     when "vendor"
       vendor_dashoard_path
     when "customer"
-      customer_requests_path
+      Rails.application.routes.url_helpers.customer_user_requests_path(self)
     end
   end
 end

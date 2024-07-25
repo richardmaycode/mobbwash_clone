@@ -34,7 +34,7 @@ module Authentication
 
   def redirect_if_authenticated
     if user_signed_in?
-      redirect_to root_path
+      redirect_to Current.user.role_portal
     end
   end
 
@@ -42,5 +42,12 @@ module Authentication
     if (authenticated_user = User.find_signed(cookies.signed[:session_token], purpose: :session_token))
       Current.user = authenticated_user
     end
+  end
+
+  def after_registration(user)
+    login(user)
+
+    # TODO: Implement email confirmation
+    # UserMailer.with(user: user).email_confirmation.deliver_later!
   end
 end

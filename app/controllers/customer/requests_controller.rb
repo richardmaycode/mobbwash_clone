@@ -1,8 +1,9 @@
 module Customer
   class RequestsController < ApplicationController
+    layout "customer"
     before_action :set_user
     def index
-      @pagy, @requests = pagy(Request.includes(:services, :vehicle, :vendor).where(customer_id: 1))
+      @pagy, @requests = pagy(Request.includes(:services, :vehicle, :vendor).where(customer_id: Current.user.id))
     end
 
     def show

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "registrations/new"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -14,9 +15,12 @@ Rails.application.routes.draw do
   #
   #
 
+  # Authentication
+  resources :registrations, only: [ :new, :create ]
   resources :sessions, only: [ :new, :create ]
   get "logout", to: "session#destroy", as: :logout
 
+  # Admin Views
   namespace :admin do
     resources :customers
     resources :vendors
@@ -25,7 +29,7 @@ Rails.application.routes.draw do
     resources :requests
   end
 
-
+  # Customer Views
   namespace :customer do
     resources :users, only: [ :show ] do
       resources :requests, only: [ :index, :show, :new, :create ]
@@ -35,6 +39,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # Vendor Views
   namespace :vendor do
     resource :dashboard, only: [ :show ]
     resources :users, only: [ :show ]
