@@ -1,8 +1,33 @@
 <h1 class="text-4xl my-4">Wash Requests</h1>
-<div class="grid w-full gap-6 md:grid-cols-2">
-  <%= render @requests %>
-</div>
+<% if @requests.any? %>
+  <div class="grid w-full gap-6 md:grid-cols-2">
+    <%= render @requests %>
+  </div>
+<% elsif !Current.user.customer_profile_incomplete? %>
+  <%= render partial: "customer/shared/empty_collection", 
+      locals: { title: "You don't have any requests!", 
+      content: "When you make a new request it will appear here. You can check the status of the request and view the vendor who will be completing the work.", 
+      url: new_customer_user_request_path(@user), 
+      url_text: "Request a wash" }%>
+<% else %>
+  <div class="grid place-content-center h-auto mt-4">
+    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Incomplete Profile!</h5>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        You must complete your profile before you can request wash.
+      </p>
+      <div class="flex gap-4">
+        <%= link_to new_customer_user_vehicle_path(@user), class:"inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
+          Add a vehicle
+        <% end if @user.missing_vehicle? %>
+        <%= link_to new_customer_user_vehicle_path(@user), class:"inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" do %>
+          Add contact infomation
+        <% end if @user.contact_info_incomplete? %>
+      </div>
+    </div>
+  </div>
+<% end %>
 <div class="my-8 flex justify-center">
-  <%== pagy_nav(@pagy) %>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
 <%= render partial: "shared/bottom_action_button", locals: { btm_btn_text: "Request Wash", btm_btn_link: new_customer_user_request_path(@user) } %>

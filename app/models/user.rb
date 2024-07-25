@@ -27,4 +27,16 @@ class User < ApplicationRecord
       Rails.application.routes.url_helpers.customer_user_requests_path(self)
     end
   end
+
+  def customer_profile_incomplete?
+    true if missing_vehicle? || contact_info_incomplete?
+  end
+
+  def missing_vehicle?
+    vehicles.empty?
+  end
+
+  def contact_info_incomplete?
+    postal_code.empty?
+  end
 end
