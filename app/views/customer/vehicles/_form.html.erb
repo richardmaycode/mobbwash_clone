@@ -1,6 +1,3 @@
-<% if @vehicle.errors.any? %>
-  EROORSA
-<% end %>
 <%= form_with model: [:customer, @vehicle] do |f| %>
   <div class="my-4">
     <%= f.label :nickname, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>

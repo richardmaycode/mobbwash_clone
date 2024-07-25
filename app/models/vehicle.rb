@@ -11,11 +11,17 @@ class Vehicle < ApplicationRecord
   validates :model, presence: true
   validates :color, presence: true
 
+  after_create :assign_new_and_sole_as_default
+
   def merged_name
     [ make, model, color ].join(" | ")
   end
 
   def default?
     default == true
+  end
+
+  def assign_new_and_sole_as_default
+    update_column(:default, true) if user.vehicles.count == 1
   end
 end

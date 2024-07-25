@@ -17,11 +17,10 @@ module Customer
     end
 
     def create
-      # TODO: On vehicle create if it is the first vehicle make it the default (might go in the model)
       @vehicle = @user.vehicles.new(vehicle_params)
 
       if @vehicle.save
-        redirect_to [ :customer, @user, :vehicles ]
+        redirect_to [ :customer, :vehicles ]
       else
         render :new
       end
@@ -44,7 +43,6 @@ module Customer
     def destroy
       @vehicle = Vehicle.find(params[:id])
       if @vehicle.default
-        puts "I'm Default!!!"
         redirect_to [ :customer, @user, :vehicles ], notice: "Cannot delete default vehicle, set another vehicle to default before attempting deletion."
       else
         @vehicle.destroy
