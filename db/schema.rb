@@ -65,7 +65,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_25_183547) do
 
   create_table "services", force: :cascade do |t|
     t.string "name"
-    t.float "price"
+    t.float "min_price"
+    t.float "max_price"
+    t.float "avg_price"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

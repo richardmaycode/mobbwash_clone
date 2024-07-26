@@ -23,9 +23,9 @@ class User < ApplicationRecord
   def role_portal
     case user_type
     when "admin"
-      admin_users_path
+      Rails.application.routes.url_helpers.admin_customers_path
     when "vendor"
-      vendor_dashoard_path
+      Rails.application.routes.url_helpers.vendor_dashoard_path
     when "customer"
       Rails.application.routes.url_helpers.customer_requests_path(self)
     end

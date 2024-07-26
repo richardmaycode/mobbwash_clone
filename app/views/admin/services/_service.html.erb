@@ -3,7 +3,11 @@
     <%= service.name %>
   </th>
   <td class="px-6 py-4">
-    <%= number_to_currency(service.price) %>
+    <div class="flex flex-col gap-4">
+      <p><span class="font-bold">Max: </span><%= number_to_currency(service.max_price) %></p>
+      <p><span class="font-bold">Min: </span><%= number_to_currency(service.min_price) %></p>
+      <p><span class="font-bold">Average: </span><%= number_to_currency(service.avg_price) %></p>
+    </div>
   </td>
   <td class="px-6 py-4">
     <%= service.requests.count %> <%# FIXME: Find a better way to count this that doesn't kill the database %>
@@ -11,7 +15,7 @@
   <td class="px-6 py-4">
     <%= service.active ? "Active" : "Inactive" %>
   </td>
-  <td class="px-6 py-4">
+  <td class="px-6 py-4"><%# TODO: Build function to activate/deactivate selctions" %>
     <%= link_to "Edit",edit_admin_service_path(service), class: "px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
     <%= link_to service.active ? "Deactivate" : "Activate ",edit_admin_service_path(service), class: "px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
   </td>
