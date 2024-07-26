@@ -1,0 +1,13 @@
+<%= render partial: "request", locals: { request: @request } %>
+<%= form_with model: [:vendor, @request], data: { controller: "range" } do |f| %>
+  <%= f.label :amount, "Bid amount", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"%>
+  <p id="#W1" data-range-target="output"></p>
+  <%= f.range_field :amount, 
+      value: @request.services.first.avg_price, 
+      min: @request.services.first.min_price, 
+      max: @request.services.first.max_price, 
+      step: 0.10, 
+      data: { range_target: "slider", action: "input->range#recalculate" }, 
+      class: "w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700" 
+  %>
+<% end %>

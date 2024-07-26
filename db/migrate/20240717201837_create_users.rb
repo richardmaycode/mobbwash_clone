@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :city
       t.string :state
       t.string :postal_code
+      t.string :timezone, null: false, default: "Eastern Time (US & Canada)"
 
       t.string :phone_number
 

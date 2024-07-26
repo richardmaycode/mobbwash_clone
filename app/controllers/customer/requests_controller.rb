@@ -20,7 +20,7 @@ module Customer
       @services = Service.active
 
       if @request.save
-        redirect_to new_customer_payment_path(request_id: @request.id), notice: "Request successfully created!"
+        redirect_to customer_requests_path(), notice: "Request successfully created!"
       else
         render :new, status: :unprocessable_entity
       end

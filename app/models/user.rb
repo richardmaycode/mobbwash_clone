@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :assigned_requests, foreign_key: "vendor_id", class_name: "Request"
   has_many :cancellations, foreign_key: "vendor_id", class_name: "Cancellation"
   has_many :payments
+  has_many :bids
 
   normalizes :email, with: ->(email) { email.strip.downcase }
   validates :email, presence: true, uniqueness: true
@@ -40,6 +41,6 @@ class User < ApplicationRecord
   end
 
   def contact_info_incomplete?
-    postal_code.empty?
+    postal_code.nil?
   end
 end

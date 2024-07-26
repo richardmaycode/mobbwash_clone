@@ -2,6 +2,7 @@ class CreateRequests < ActiveRecord::Migration[7.2]
   def change
     create_table :requests do |t|
       t.string :request_number
+
       t.text :access_details
       t.string :location
 
@@ -14,6 +15,7 @@ class CreateRequests < ActiveRecord::Migration[7.2]
       t.text :completion_notes
 
       t.integer :status
+      t.integer :request_type
 
       t.references :customer
       t.references :vendor

@@ -4,7 +4,13 @@ class ApplicationController < ActionController::Base
 
   include Authentication
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_current_details
 
   include Pagy::Backend
+
+  private
+
+  def set_current_details
+    Current.timezone = Current.user.timezone if Current.user.present?
+  end
 end

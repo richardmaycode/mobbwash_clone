@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_07_25_183547) do
+ActiveRecord::Schema[7.2].define(version: 2024_07_26_195204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bids", force: :cascade do |t|
+    t.bigint "request_id", null: false
+    t.bigint "vendor_id", null: false
+    t.float "amount"
+    t.datetime "work_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_bids_on_request_id"
+    t.index ["vendor_id"], name: "index_bids_on_vendor_id"
+  end
 
   create_table "cancellations", force: :cascade do |t|
     t.bigint "vendor_id"
@@ -53,6 +64,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_25_183547) do
     t.datetime "completed"
     t.text "completion_notes"
     t.integer "status"
+    t.integer "request_type"
     t.bigint "customer_id"
     t.bigint "vendor_id"
     t.bigint "vehicle_id", null: false
@@ -82,6 +94,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_25_183547) do
     t.string "city"
     t.string "state"
     t.string "postal_code"
+    t.string "timezone", default: "Eastern Time (US & Canada)", null: false
     t.string "phone_number"
     t.integer "user_type"
     t.datetime "created_at", null: false

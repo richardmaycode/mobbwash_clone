@@ -1,6 +1,6 @@
 <h1 class="text-4xl my-4">Wash Requests</h1>
 <% if @requests.any? %>
-  <div class="grid w-full gap-6 md:grid-cols-2">
+  <div class="grid w-full gap-6 grid-cols-1">
     <%= render @requests %>
   </div>
 <% elsif !Current.user.customer_profile_incomplete? %>

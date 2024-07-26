@@ -1,5 +1,6 @@
 class Request < ApplicationRecord
-  enum :status, { awaiting_payment: 0, available: 1, assigned: 2, completed: 3, expired: 4, cancelled: 5 }, default: :awaiting_payment
+  enum :status, { awaiting_bids: 0, awaiting_payment: 1, assigned: 2, completed: 3, expired: 4, cancelled: 5 }, default: :awaiting_bids
+  enum :request_type, { asap: 0, scheduled: 1 }, default: :scheduled
 
   belongs_to :customer, class_name: "User", required: false
   belongs_to :vendor, class_name: "User", required: false
@@ -21,6 +22,7 @@ class Request < ApplicationRecord
   validates :scheduled, presence: true
   validates :access_details, presence: true
   validate :vendor_is_not_customer
+  validates :request_type, presence: true
 
   # Completion Validations
   validate :completed_date_present, on: :completion

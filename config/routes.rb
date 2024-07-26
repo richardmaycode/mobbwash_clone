@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     resources :requests, only: [ :index, :show ] do
       resources :claims, only: [ :new, :create ], module: :requests
       resources :cancellations, only: [ :new, :create ], module: :requests
+      resources :bids, only: [ :new, :create ]
     end
   end
 end

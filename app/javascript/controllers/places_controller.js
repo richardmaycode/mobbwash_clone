@@ -12,7 +12,7 @@ export default class extends Controller {
     console.log("Places!")
   }
 
-  initMap() {
+  async initMap() {
     this.map = new google.maps.Map(this.mapTarget, {
       center: new google.maps.LatLng(this.data.get("latitude") || 26.12, this.data.get("longitude") || -80.14),
       zoom: 13,// (this.data.get("latitude") == null ? 4 : 8)
@@ -24,7 +24,7 @@ export default class extends Controller {
 
     this.autocomplete = new google.maps.places.Autocomplete(this.fieldTarget)
     this.autocomplete.bindTo('bounds', this.map)
-    this.autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
+    this.autocomplete.setFields(['address_components', 'geometry', 'icon', 'name', 'utc_offset_minutes'])
     this.autocomplete.addListener('place_changed', this.placeChanged.bind(this))
 
     this.marker = new google.maps.Marker({
@@ -54,6 +54,7 @@ export default class extends Controller {
 
     this.latitudeTarget.value = place.geometry.location.lat()
     this.longitudeTarget.value = place.geometry.location.lng()
+    console.log(place.utc_offset_minutes)
   }
 
   keydown(event) {

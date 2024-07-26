@@ -8,6 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+User.create! name: "Rich", email: "admin@test.com", password: "password", user_type: 0, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
+Vehicle.create! nickname: "test", make: "test", model: Faker::Vehicle.model, color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: 1, default: true
+
+
 Service.create! name: "Basic Interior", min_price: 60.00, max_price: 95.00, avg_price: 80.12, active: true
 Service.create! name: "Basic Interior/Exterior", min_price: 100.00, max_price: 135.00, avg_price: 120.62, active: true
 Service.create! name: "Interior/Exterior with Wax", min_price: 140.00, max_price: 185.00, avg_price: 163, active: true

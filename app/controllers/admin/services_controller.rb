@@ -12,13 +12,17 @@ class Admin::ServicesController < ApplicationController
   def new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
   end
 
   def update
+    if @service.update(service_params)
+      redirect_to admin_services_path, notice: "Service updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -28,5 +32,9 @@ class Admin::ServicesController < ApplicationController
 
   def set_service
     @service = Service.find(params[:id])
+  end
+
+  def service_params
+    params.require(:service).permit(:name, :min_price, :max_price, :avg_price)
   end
 end
