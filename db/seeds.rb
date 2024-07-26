@@ -8,10 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Service.create! name: "Basic Interior", price: 45.50, active: true
-Service.create! name: "Basic Interior/Exterior", price: 65.50, active: true
-Service.create! name: "Interior/Exterior with Wax", price: 85.50, active: true
-Service.create! name: "Custom", price: 150.00, active: true
+Service.create! name: "Basic Interior", min_price: 60.00, max_price: 95.00, avg_price: 80.12, active: true
+Service.create! name: "Basic Interior/Exterior", min_price:100.00, max_price:, avg_price: 120.62, active: true
+Service.create! name: "Interior/Exterior with Wax", min_price:140.00, max_price:185.00, avg_price: 163, active: true
+Service.create! name: "Custom", min_price: 1000.00, max_price: 3000.00, avg_price: 2000.00, active: false
 
 # Fake Customers
 if Rails.env.development?

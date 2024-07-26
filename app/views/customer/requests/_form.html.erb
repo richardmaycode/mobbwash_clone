@@ -1,4 +1,4 @@
-<%= form_with model: [:customer, @request] do |f| %>
+<%= form_with model: [:customer, @request], data: { controller: "places", action: "google-maps-callback@window->places#initMap", places_latitude: @request.location_lat, places_longitude: @request.location_long } do |f| %>
   <% if @request.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(@request.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -16,9 +16,12 @@
   </div>
   <div class="my-4">
     <%= f.label :location, "Where is it?", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
-    <%= f.text_field :location, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
-    <%= f.hidden_field :location_lat, value: 0.1 %>
-    <%= f.hidden_field(:location_long, value: 0.1) %>
+    <%= f.text_field :location, data: { places_target: "field", action: "keydown->places#keydown" }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
+    <%= f.hidden_field :location_lat, value: 00, data: { target: "places.latitude" } %>
+    <%= f.hidden_field(:location_long, value: 00, data: { target: "places.longitude" }) %>
+  </div>
+  <div class="p-4">
+    <div data-places-target="map" style="height:400px;width:100%;"></div>
   </div>
   <div class="my-4">
     <%= f.label :scheduled, "When do you need it?" %>

@@ -5,5 +5,7 @@ class Service < ApplicationRecord
   scope :active, -> { where(active: true) }
 
   validates :name, presence: true, uniqueness: true
-  validates :price, presence: true
+  validates :min_price, presence: true
+  validates :max_price, presence: true
+  validates :avg_price, presence: true
 end
