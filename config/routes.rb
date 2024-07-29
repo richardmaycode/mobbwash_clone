@@ -31,7 +31,11 @@ Rails.application.routes.draw do
 
   # Customer Views
   namespace :customer do
-    resources :requests, only: [ :index, :show, :new, :create ]
+    resources :requests, only: [ :index, :show, :new, :create ] do
+      resources :bids, only: [ :index ] do
+        post "accept", on: :member
+      end
+    end
     resources :vehicles do
       resource :default, only: [ :create ], module: :vehicles
     end
