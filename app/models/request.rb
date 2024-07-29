@@ -10,6 +10,7 @@ class Request < ApplicationRecord
 
   has_many :request_services, inverse_of: :request, dependent: :destroy
   has_many :services, through: :request_services, source: :service
+  has_many :bids
 
   scope :not_today, -> { where("scheduled < ?", Date.today) }
   scope :incomplete, -> { where(completed: nil) }

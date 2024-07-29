@@ -2,7 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="range"
 export default class extends Controller {
-  static targets = ["slider", "output" ]
+  static targets = ["slider", "output", "payout" ]
+  static values = { prefix: { type: String, default: "" } }
   connect() {
     console.log(this.outputTarget)
     console.log(this.sliderTarget)
@@ -11,6 +12,8 @@ export default class extends Controller {
 
   recalculate() {
     console.log("I recalculated")
-    this.outputTarget.innerHTML = this.sliderTarget.value
+    console.log(parseFloat(this.sliderTarget.value).toFixed(2))
+    this.outputTarget.innerHTML = this.prefixValue + parseFloat(this.sliderTarget.value).toFixed(2)
+    this.payoutTarget.innerHTML = this.prefixValue + parseFloat(this.sliderTarget.value / 1.25).toFixed(2)
   }
 }

@@ -12,9 +12,9 @@ User.create! name: "Rich", email: "admin@test.com", password: "password", user_t
 Vehicle.create! nickname: "test", make: "test", model: Faker::Vehicle.model, color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: 1, default: true
 
 
-Service.create! name: "Basic Interior", min_price: 60.00, max_price: 95.00, avg_price: 80.12, active: true
-Service.create! name: "Basic Interior/Exterior", min_price: 100.00, max_price: 135.00, avg_price: 120.62, active: true
-Service.create! name: "Interior/Exterior with Wax", min_price: 140.00, max_price: 185.00, avg_price: 163, active: true
+Service.create! name: "Basic Interior", min_price: 60.00, max_price: 100.00, avg_price: 80.00, active: true
+Service.create! name: "Basic Interior/Exterior", min_price: 105.00, max_price: 145.00, avg_price: 125.00, active: true
+Service.create! name: "Interior/Exterior with Wax", min_price: 150.00, max_price: 190.00, avg_price: 170, active: true
 Service.create! name: "Custom", min_price: 1000.00, max_price: 3000.00, avg_price: 2000.00, active: false
 
 # Fake Customers

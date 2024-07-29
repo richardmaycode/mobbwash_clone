@@ -1,13 +1,36 @@
 <%= render partial: "request", locals: { request: @request } %>
-<%= form_with model: [:vendor, @request], data: { controller: "range" } do |f| %>
-  <%= f.label :amount, "Bid amount", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"%>
-  <p id="#W1" data-range-target="output"></p>
-  <%= f.range_field :amount, 
+<%= form_with model: [:vendor, @request, @bid] do |f| %>
+  <div data-controller="range" data-range-prefix-value="$" >
+    <div class="flex content-center justify-center p-4 gap-4">
+      <div class="font-bold w-full md:w-1/2 text-center mx-auto p-4 md:p-12 bg-slate-200 rounded-lg">
+        <p id="#W1" class="text-2xl md:text-4xl" data-range-target="output"></p>
+        <%= f.label :amount, "Bid amount", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"%>
+      </div>
+      <div class="font-bold w-full md:w-1/2 text-center mx-auto p-4 md:p-12 bg-slate-200 rounded-lg">
+        <p id="#W1" class="text-2xl md:text-4xl" data-range-target="payout"></p>
+        <%= f.label :amount, "Estimated Payout", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"%>
+      </div>
+    </div>
+    <div class ="relative mb-6">
+      <%= f.range_field :amount, 
       value: @request.services.first.avg_price, 
       min: @request.services.first.min_price, 
       max: @request.services.first.max_price, 
       step: 0.10, 
       data: { range_target: "slider", action: "input->range#recalculate" }, 
       class: "w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700" 
-  %>
+    %>
+      <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6"><%= number_to_currency(@request.services.first.min_price) %></span>
+      <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6"><%= number_to_currency(@request.services.first.avg_price) %></span>
+      <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6"><%= number_to_currency(@request.services.first.max_price) %></span>
+    </div>
+  </div>
+  <div class="">
+    <%= f.label :work_date, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"%>
+    <%= f.datetime_field :work_date, value: @request.scheduled.utc, min: Date.today, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
+  </div>
+  <div class="flex flex-col gap-4 my-4">
+    <%= f.submit "Submit Bid", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"%>
+    <%= link_to "Cancel", vendor_requests_path, class: "text-center py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>
+  </div>
 <% end %>

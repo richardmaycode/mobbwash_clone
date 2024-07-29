@@ -23,7 +23,7 @@ module Vendor
     end
 
     def set_user
-      @user = User.second
+      @user = Current.user
     end
 
     private
