@@ -59,4 +59,8 @@ Rails.application.routes.draw do
       resources :bids, only: [ :new, :create ]
     end
   end
+
+  get "/customer", to: redirect("/customer/requests")
+  get "/vendor", to: redirect("vendor/dashboards")
+  get "/admin", to: redirect("admin/customers")
 end

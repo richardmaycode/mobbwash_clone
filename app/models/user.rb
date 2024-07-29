@@ -26,7 +26,7 @@ class User < ApplicationRecord
     when "admin"
       Rails.application.routes.url_helpers.admin_customers_path
     when "vendor"
-      Rails.application.routes.url_helpers.vendor_dashoard_path
+      Rails.application.routes.url_helpers.vendor_dashboard_path
     when "customer"
       Rails.application.routes.url_helpers.customer_requests_path(self)
     end

@@ -4,8 +4,8 @@
     <h2 class="text-3xl mb-2">Jobs</h2>
     <div class="grid grid-cols-3 gap-4 mb-4">
       <div class="flex items-center justify-center h-24 py-24 rounded bg-gray-50 dark:bg-gray-800 shadow">
-        <%= link_to vendor_requests_path(filter: :available) ,class: "text-2xl text-center" do %>
-          <p class="text-5xl pb-4"><%= Request.available.count %></p>
+        <%= link_to vendor_requests_path(filter: :awaiting_bids) ,class: "text-2xl text-center" do %>
+          <p class="text-5xl pb-4"><%= Request.awaiting_bids.count %></p>
           <h2>Available Jobs</h2>
         <% end %>
       </div>
