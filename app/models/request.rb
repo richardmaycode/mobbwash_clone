@@ -32,6 +32,8 @@ class Request < ApplicationRecord
 
   after_create :assign_request_number
 
+  broadcasts_refreshes
+
   def google_map_url
     "https://maps.google.com/?q=#{location_lat},#{location_long}"
   end
