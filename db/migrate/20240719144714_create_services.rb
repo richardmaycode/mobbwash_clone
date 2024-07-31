@@ -5,6 +5,7 @@ class CreateServices < ActiveRecord::Migration[7.2]
       t.float :min_price
       t.float :max_price
       t.float :avg_price
+      t.string :stripe_product_id
       t.boolean :active
 
       t.timestamps

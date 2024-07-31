@@ -44,6 +44,9 @@ gem "solid_queue"
 gem "web-push"
 gem "requestjs-rails"
 
+gem "pay", "~> 7.0"
+gem "stripe", "~> 12.0"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

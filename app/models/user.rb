@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  pay_customer stripe_attributes: :stripe_attributes, default_payment_processor: :stripe
 
   PASSWORD_MIN_LENGTH = 8
   PASSWORD_MAX_LENGTH = 84
@@ -43,5 +44,18 @@ class User < ApplicationRecord
 
   def contact_info_incomplete?
     postal_code.nil?
+  end
+
+  def stripe_attributes
+    {
+      address: {
+        city: pay_customer.owner.city,
+        country: pay_customer.owner.country
+      },
+      metadata: {
+        pay_customer_id: pay_customer.id,
+        user_id: id # or pay_customer.owner_id
+      }
+    }
   end
 end

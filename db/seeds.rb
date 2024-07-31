@@ -14,10 +14,10 @@ User.create! name: "Jerrys Mobile Carwash", email: "vendor@test.com", password: 
 Vehicle.create! nickname: "test", make: "test", model: Faker::Vehicle.model, color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: 1, default: true
 
 
-Service.create! name: "Basic Interior", min_price: 60.00, max_price: 100.00, avg_price: 80.00, active: true
-Service.create! name: "Basic Interior/Exterior", min_price: 105.00, max_price: 145.00, avg_price: 125.00, active: true
-Service.create! name: "Interior/Exterior with Wax", min_price: 150.00, max_price: 190.00, avg_price: 170, active: true
-Service.create! name: "Custom", min_price: 1000.00, max_price: 3000.00, avg_price: 2000.00, active: false
+Service.create! name: "Basic Interior", min_price: 60.00, max_price: 100.00, avg_price: 80.00, active: true, stripe_product_id: "prod_QZn07bB9oqmn6V"
+Service.create! name: "Basic Interior/Exterior", min_price: 105.00, max_price: 145.00, avg_price: 125.00, active: true, stripe_product_id: "prod_QZn254rAWXPzy1"
+Service.create! name: "Interior/Exterior with Wax", min_price: 150.00, max_price: 190.00, avg_price: 170, active: true, stripe_product_id: "prod_QZn3yvBeiLgnmF"
+Service.create! name: "Custom", min_price: 1000.00, max_price: 3000.00, avg_price: 2000.00, active: false, stripe_product_id: "prod_QZn4RIF8ZPIPY0"
 
 # Fake Customers
 # if Rails.env.development?
