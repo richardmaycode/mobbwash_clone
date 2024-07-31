@@ -71,6 +71,12 @@ class Request < ApplicationRecord
   def assign_request_number
     update_column(:request_number, 13000000 + id)
   end
+
+  def notify_vendor_of_new_request
+    Vendor.all do |v|
+      PushSubscription.where(user_id: 
+    end
+  end
 end
 
 # TODO: Create ability for customer to cancel request

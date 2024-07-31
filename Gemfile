@@ -41,6 +41,8 @@ gem "chartkick"
 gem "groupdate"
 
 gem "solid_queue"
+gem "web-push"
+gem "requestjs-rails"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

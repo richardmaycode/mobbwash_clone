@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "/customer/service-worker" => "rails/pwa#service_worker", as: :pwa_customer_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
@@ -19,6 +20,12 @@ Rails.application.routes.draw do
   resources :registrations, only: [ :new, :create ]
   resources :sessions, only: [ :new, :create ]
   get "logout", to: "sessions#destroy", as: :logout
+
+
+    # Push Subscriptions
+
+
+    resources :push_subscriptions
 
   # Admin Views
   namespace :admin do
