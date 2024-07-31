@@ -1,28 +1,65 @@
-<h1 class="text-4xl"> Wash Request Details </h1>
-<h2 class="text-2xl">Request #: <%= @request.request_number %></h2>
+<h1 class="text-4xl mb-4"> Wash Request #<%= @request.request_number %> </h1>
 <div class="flex flex-col gap-4">
   <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Summary</h5>
-    </a>
-    <div class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= @request.location %> <br/>
-      <%= @request.access_details %></div>
-  </div>
-  <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payment Details</h5>
-    </a>
-    <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</div>
-  </div>
-  <!--Vendor Card -->
-  <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Vendor Details</h5>
-    </a>
-    <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-      <div class="grid grid-cols-3">
-        <%#= label %>
+    <div>
+      <div class="px-4 sm:px-0 flex justify-between align-center">
+        <h3 class="text-base font-semibold leading-7 text-gray-900">Request Information</h3>
+        <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"><%= @request.status.upcase %></span>
+      </div>
+      <div class="mt-6 border-t border-gray-100">
+        <dl class="divide-y divide-gray-100">
+          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt class="text-sm font-medium leading-6 text-gray-900">Vehicle</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <%= @request.vehicle.nickname %>
+              <br />
+              <%= @request.vehicle.merged_name %>
+            </dd>
+          </div>
+          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt class="text-sm font-medium leading-6 text-gray-900">Service</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @request.services.first.name %> | Avg Price: <%= number_to_currency(@request.services.first.avg_price) %> </dd>
+          </div>
+          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @request.location %></dd>
+          </div>
+          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt class="text-sm font-medium leading-6 text-gray-900">Appointment Details</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <%= @request.request_type.upcase %>
+              <br />
+              <%= @request.scheduled.strftime("%A, %B %-d, %Y %I:%M %P")%>
+            </dd>
+          </div>
+        </dl>
       </div>
     </div>
   </div>
+  <%= turbo_frame_tag "request-bids", src: customer_request_bids_path(@request) do %>
+    <div class="flex items-center justify-center w-full h-40 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+      <div class="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">loading...</div>
+    </div>
+  <% end %>
+  <% if @request.completed? %>
+    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <a href="#">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payment Details</h5>
+      </a>
+      <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</div>
+    </div>
+  <% end %>
+  <% if @request.vendor.present? %>
+    <!--Vendor Card -->
+    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <a href="#">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Vendor Details</h5>
+      </a>
+      <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <div class="grid grid-cols-3">
+          <%#= label %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

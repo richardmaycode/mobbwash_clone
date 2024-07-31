@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :assigned_requests, foreign_key: "vendor_id", class_name: "Request"
   has_many :cancellations, foreign_key: "vendor_id", class_name: "Cancellation"
   has_many :payments
-  has_many :bids
+  has_many :bids, foreign_key: "vendor_id", class_name: "Bid"
   has_many :push_subscriptions
 
   normalizes :email, with: ->(email) { email.strip.downcase }

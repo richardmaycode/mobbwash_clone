@@ -1,6 +1,10 @@
 module Vendor
   class BidsController < ApplicationController
-    before_action :set_request
+    before_action :set_request, only: [ :new, :create ]
+
+    def index
+      @bids = Current.user.bids
+    end
 
     def new
       @bid = @request.bids.new(vendor_id: Current.user)

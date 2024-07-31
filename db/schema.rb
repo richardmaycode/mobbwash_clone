@@ -15,10 +15,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_135448) do
   enable_extension "plpgsql"
 
   create_table "bids", force: :cascade do |t|
-    t.bigint "request_id", null: false
-    t.bigint "vendor_id", null: false
+    t.integer "status"
     t.float "amount"
     t.datetime "work_date"
+    t.datetime "last_status_update"
+    t.bigint "request_id", null: false
+    t.bigint "vendor_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["request_id"], name: "index_bids_on_request_id"

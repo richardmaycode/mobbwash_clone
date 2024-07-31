@@ -1,4 +1,6 @@
 class Bid < ApplicationRecord
+  enum :status, { active: 0, accepted: 1, cancelled: 2, declinded: 3 }, default: 0
+
   belongs_to :request
   belongs_to :vendor, class_name: "User", required: false
   has_one :customer, through: :request

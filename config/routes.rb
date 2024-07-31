@@ -56,6 +56,9 @@ Rails.application.routes.draw do
 
   # Vendor Views
   namespace :vendor do
+    resources :bids, only: [ :index ] do
+      resources :cancellations, only: [ :create ], module: :bids
+    end
     resource :dashboard, only: [ :show ]
     resources :users, only: [ :show ]
     namespace :completions do

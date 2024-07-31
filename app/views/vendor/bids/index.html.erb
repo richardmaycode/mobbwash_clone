@@ -1,0 +1,7 @@
+<h1 class="text-4xl">My Bids</h1>
+<% if @bids.any? %>
+  <div class="grid grid-cols-3 gap-4 my-8">
+    <%= render @bids%>
+  </div>
+<% else %>
+<% end %>

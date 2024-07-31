@@ -1,4 +1,4 @@
-<%= render partial: "request", locals: { request: @request } %>
+<%= render partial: "vendor/requests/request", locals: { request: @request, show_actions: false } %>
 <%= form_with model: [:vendor, @request, @bid] do |f| %>
   <div data-controller="range" data-range-prefix-value="$" >
     <div class="flex content-center justify-center p-4 gap-4">
