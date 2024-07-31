@@ -8,14 +8,12 @@ export default class extends Controller {
     if (typeof(google) != "undefined") {
       this.initMap()
     }
-
-    console.log("Places!")
   }
 
   async initMap() {
     this.map = new google.maps.Map(this.mapTarget, {
-      center: new google.maps.LatLng(this.data.get("latitude") || 26.12, this.data.get("longitude") || -80.14),
-      zoom: 13,// (this.data.get("latitude") == null ? 4 : 8)
+      center: new google.maps.LatLng(this.latitudeTarget.value || 26.12, this.longitudeTarget.value || -80.14),
+      zoom: 13,
       streetViewControl: false,
       mapTypeControlOptions: {
         mapTypeIds: ['roadmap']

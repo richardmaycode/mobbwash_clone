@@ -15,8 +15,9 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :maps_api_key) %>&libraries=places,marker&callback=initMap" async defer data-turbolinks-eval="false"></script>  </head>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :maps_api_key) %>&libraries=places,marker&callback=initMap&loading=async" data-turbolinks-eval="false"></script>
     <script src="https://js.stripe.com/v3/"></script>
+  </head>
   <body>
     <%= render "shared/nav" %>
     <main class="container mx-auto mt-4 px-5 max-w-full md:max-w-[900px] mb-36">
@@ -24,5 +25,12 @@
     </main>
     <%= render "shared/flash" %>
     <%= render "shared/bottom_nav", locals: { action: @action } %>
+    <script>
+      window.initMap = function (...args) {
+        const event = new Event('google-maps-callback', { bubbles: true, cancelable: true });
+        event.args = args;
+        document.dispatchEvent(event);
+      };
+    </script>
   </body>
 </html>

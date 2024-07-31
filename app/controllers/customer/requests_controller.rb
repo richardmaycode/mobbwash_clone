@@ -12,7 +12,7 @@ module Customer
     end
 
     def new
-      @request = @user.requests.new
+      @request = @user.requests.new(location_lat:  26.12, location_long: -80.14)
       @services = Service.active
     end
 

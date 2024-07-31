@@ -10,8 +10,8 @@
 
 User.create! name: "Richard Wise", email: "admin@test.com", password: "password", user_type: 0, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
 User.create! name: "Jerrys Mobile Carwash", email: "vendor@test.com", password: "password", user_type: 1, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
-
-Vehicle.create! nickname: "test", make: "test", model: Faker::Vehicle.model, color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: 1, default: true
+User.create! name: "Richard Wise", email: "customer@test.com", password: "password", user_type: 2, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
+Vehicle.create! nickname: "test", make: "test", model: Faker::Vehicle.model, color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: 3, default: true
 
 
 Service.create! name: "Basic Interior", min_price: 60.00, max_price: 100.00, avg_price: 80.00, active: true, stripe_product_id: "prod_QZn07bB9oqmn6V"
