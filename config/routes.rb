@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   # Customer Views
   namespace :customer do
+    resource :fulfillments, only: [ :show ]
     resources :requests, only: [ :index, :show, :new, :create ] do
       resources :bids, only: [ :index ] do
         post "accept", on: :member

@@ -9,3 +9,5 @@ class CreatePayments < ActiveRecord::Migration[7.2]
     end
   end
 end
+
+# TODO: Remove as it is no longer necessary

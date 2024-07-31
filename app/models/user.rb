@@ -34,6 +34,10 @@ class User < ApplicationRecord
     end
   end
 
+  def full_address
+    [ address_line_1, address_line_2, city, state, postal_code ].join(" ")
+  end
+
   def customer_profile_incomplete?
     true if missing_vehicle? || contact_info_incomplete?
   end
@@ -46,11 +50,11 @@ class User < ApplicationRecord
     postal_code.nil?
   end
 
-  def stripe_attributes
+  def stripe_attributes(pay_customer)
     {
       address: {
         city: pay_customer.owner.city,
-        country: pay_customer.owner.country
+        country: "USA"
       },
       metadata: {
         pay_customer_id: pay_customer.id,
