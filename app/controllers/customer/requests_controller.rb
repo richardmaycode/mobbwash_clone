@@ -1,7 +1,9 @@
 module Customer
   class RequestsController < ApplicationController
     layout "customer"
+    
     before_action :set_user
+
     def index
       @pagy, @requests = pagy(@user.requests.includes(:services, :vehicle, :vendor))
       send_test_notification
