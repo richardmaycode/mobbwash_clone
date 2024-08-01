@@ -4,7 +4,7 @@ module Vendor::VendorHelper
     when "awaiting_bids"
       "No Available Requests"
     when "assigned"
-      "No Pending Requests"
+      "No Active Requests"
     when "completed"
       "No Completed Requests"
     else

@@ -30,7 +30,7 @@ class User < ApplicationRecord
     when "vendor"
       Rails.application.routes.url_helpers.vendor_dashboard_path
     when "customer"
-      Rails.application.routes.url_helpers.customer_requests_path(self)
+      Rails.application.routes.url_helpers.customer_requests_path
     end
   end
 
@@ -61,5 +61,9 @@ class User < ApplicationRecord
         user_id: id # or pay_customer.owner_id
       }
     }
+  end
+
+  def active_bids_request_ids
+    bids.where(status: "active").pluck(:request_id)
   end
 end

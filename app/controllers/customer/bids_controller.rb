@@ -1,5 +1,7 @@
 module Customer
   class BidsController < ApplicationController
+    layout "customer"
+
     before_action :set_request
     def index
       @bids = @request.bids

@@ -24,4 +24,8 @@ class Vehicle < ApplicationRecord
   def assign_new_and_sole_as_default
     update_column(:default, true) if user.vehicles.count == 1
   end
+
+  def eligible_for_request?
+    user.requests.excluding
+  end
 end
