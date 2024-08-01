@@ -8,3 +8,8 @@ window.Stimulus   = application
 
 export { application }
 
+// window.initMap = function (...args) {
+//   const event = new Event('google-maps-callback', { bubbles: true, cancelable: true });
+//   event.args = args;
+//   document.dispatchEvent(event);
+// };

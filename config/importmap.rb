@@ -8,3 +8,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "el-transition" # @0.0.7
 pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
+pin "@googlemaps/js-api-loader", to: "@googlemaps--js-api-loader.js" # @1.16.8
