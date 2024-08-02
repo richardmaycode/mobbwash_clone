@@ -1,23 +1,55 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
 
-User.create! name: "Richard Wise", email: "admin@test.com", password: "password", user_type: 0, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
-User.create! name: "Jerrys Mobile Carwash", email: "vendor@test.com", password: "password", user_type: 1, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
-User.create! name: "Richard Wise", email: "customer@test.com", password: "password", user_type: 2, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number
+VehicleSize.create! name: "Economy", active: true
+VehicleSize.create! name: "Medsize", active: true
+VehicleSize.create! name: "Luxury", active: true
+
+VehicleCategory.create! name: "Economy Car", active: true, vehicle_size_id: 1
+VehicleCategory.create! name: "Economy Truck", active: true, vehicle_size_id: 1
+VehicleCategory.create! name: "Small Boat/Trailer < 20'", active: true, vehicle_size_id: 1
+VehicleCategory.create! name: "Motorcycle", active: true, vehicle_size_id: 2
+VehicleCategory.create! name: "Medsize Sedan", active: true, vehicle_size_id: 2
+VehicleCategory.create! name: "Medsize Truck", active: true, vehicle_size_id: 2
+VehicleCategory.create! name: "Minivan", active: true, vehicle_size_id: 2
+VehicleCategory.create! name: "boat/trailer 21' to 27'", active: true, vehicle_size_id: 2
+VehicleCategory.create! name: "Touring Motorcycle", active: true, vehicle_size_id: 3
+VehicleCategory.create! name: "Luxury Car", active: true, vehicle_size_id: 3
+VehicleCategory.create! name: "Super Duty Truck", active: true, vehicle_size_id: 3
+VehicleCategory.create! name: "Cargo Van", active: true, vehicle_size_id: 3
+VehicleCategory.create! name: "Luxury Boat/Trailer Less Than 32'", active: true, vehicle_size_id: 3
+
+Service.create! name: "Exterior Wash", active: true
+Service.create! name: "Interior/Exterior Wash", active: true
+Service.create! name: "Showroom Detail w/Wax", active: true
+Service.create! name: "Custom/ Dealer Service", active: true
+
+Region.create! name: "South Florida", active: true, center_lat: 26.12, center_long: -80.14
+
+# DEFAULT PRICING
+# ECONOMY
+Price.create! amount: 6000, vehicle_size_id: 1, service_id: 1, region_id: 1
+Price.create! amount: 8000, vehicle_size_id: 2, service_id: 1, region_id: 1
+Price.create! amount: 12000, vehicle_size_id: 3, service_id: 1, region_id: 1
+
+# MIDSIZE
+Price.create! amount: 10000, vehicle_size_id: 1, service_id: 2, region_id: 1
+Price.create! amount: 12000, vehicle_size_id: 2, service_id: 2, region_id: 1
+Price.create! amount: 15000, vehicle_size_id: 3, service_id: 2, region_id: 1
+
+# LUXURY
+Price.create! amount: 15000, vehicle_size_id: 1, service_id: 3, region_id: 1
+Price.create! amount: 18000, vehicle_size_id: 2, service_id: 3, region_id: 1
+Price.create! amount: 30000, vehicle_size_id: 3, service_id: 3, region_id: 1
+
+
+
+
+User.create! name: "Richard Wise", email: "admin@test.com", password: "password", user_type: 0, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number, region_id: 1
+User.create! name: "Jerrys Mobile Carwash", email: "vendor@test.com", password: "password", user_type: 1, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number, region_id: 1
+User.create! name: "Richard Wise", email: "customer@test.com", password: "password", user_type: 2, address_line_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, postal_code: Faker::Address.postcode, phone_number: Faker::PhoneNumber.phone_number, region_id: 1
 Vehicle.create! nickname: "test", make: "test", model: Faker::Vehicle.model, color: Faker::Vehicle.color, license_plate: Faker::Vehicle.license_plate, user_id: 3, default: true
 
 
-Service.create! name: "Basic Interior", min_price: 60.00, max_price: 100.00, avg_price: 80.00, active: true, stripe_product_id: "prod_QZn07bB9oqmn6V"
-Service.create! name: "Basic Interior/Exterior", min_price: 105.00, max_price: 145.00, avg_price: 125.00, active: true, stripe_product_id: "prod_QZn254rAWXPzy1"
-Service.create! name: "Interior/Exterior with Wax", min_price: 150.00, max_price: 190.00, avg_price: 170, active: true, stripe_product_id: "prod_QZn3yvBeiLgnmF"
-Service.create! name: "Custom", min_price: 1000.00, max_price: 3000.00, avg_price: 2000.00, active: false, stripe_product_id: "prod_QZn4RIF8ZPIPY0"
+
 
 # Fake Customers
 # if Rails.env.development?

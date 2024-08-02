@@ -8,6 +8,7 @@
       </span>
     </div>
   </div>
-  <p class="font-normal text-gray-700 dark:text-gray-400">Service: <%= request.services.first.name %></p>
-  <p class="font-normal text-gray-700 dark:text-gray-400">Vehicle: <%= request.vehicle.nickname %></p>
+  <p class="font-normal text-gray-700 dark:text-gray-400">Service: <%= request.price.service.name %> | <%= request.price.vehicle_size.name %></p>
+  <p class="font-normal text-gray-700 dark:text-gray-400">Price: <%= formatted_amount(request.price.amount) %></p>
+  <!--<p class="font-normal text-gray-700 dark:text-gray-400">Vehicle: <%#= request.vehicle.nickname %></p>-->
 <% end %>

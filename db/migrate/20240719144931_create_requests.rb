@@ -19,7 +19,8 @@ class CreateRequests < ActiveRecord::Migration[7.2]
 
       t.references :customer
       t.references :vendor
-      t.belongs_to :vehicle, null: false, foreign_key: true
+      t.belongs_to :price, null: false, foreign_key: true
+      # t.belongs_to :vehicle, null: false, foreign_key: true
 
       t.timestamps
     end

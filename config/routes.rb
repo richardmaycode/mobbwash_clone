@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
 
     resources :push_subscriptions
+    resource :price, only: [ :show ]
 
   # Admin Views
   namespace :admin do

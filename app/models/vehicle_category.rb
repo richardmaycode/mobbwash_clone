@@ -1,6 +1,7 @@
-class Service < ApplicationRecord
+class VehicleCategory < ApplicationRecord
+  belongs_to :vehicle_size
   has_many :prices
-  
+
   scope :active, -> { where active: true }
   scope :inactive, -> { where active: false }
 

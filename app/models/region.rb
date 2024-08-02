@@ -1,6 +1,6 @@
-class Service < ApplicationRecord
-  has_many :prices
-  
+class Region < ApplicationRecord
+  has_many :users
+
   scope :active, -> { where active: true }
   scope :inactive, -> { where active: false }
 

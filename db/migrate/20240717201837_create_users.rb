@@ -16,6 +16,7 @@ class CreateUsers < ActiveRecord::Migration[7.2]
 
       t.integer :user_type
 
+      t.belongs_to :region, null: false, foreign_key: true
       t.timestamps
     end
   end

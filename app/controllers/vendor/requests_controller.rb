@@ -8,13 +8,13 @@ module Vendor
 
       case filter
       when "assigned"
-        @pagy, @requests = pagy(@user.assigned_requests.includes(:services, :vehicle, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
+        @pagy, @requests = pagy(@user.assigned_requests.includes(:price, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
         @page_title = "Active"
       when "completed"
-        @pagy, @requests = pagy(@user.assigned_requests.includes(:services, :vehicle, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
+        @pagy, @requests = pagy(@user.assigned_requests.includes(:price, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
         @page_title = "Completed"
       else
-        @pagy, @requests = pagy(Request.includes(:services, :vehicle, :customer).where(status: filter).where.not(id: Current.user.active_bids_request_ids).order(scheduled: :ASC), limit: 10)
+        @pagy, @requests = pagy(Request.includes(:price, :customer).where(status: filter).order(scheduled: :ASC), limit: 10)
         @page_title = "Available"
       end
     end
@@ -28,7 +28,7 @@ module Vendor
 
     private
     def set_request
-      @request = Request.includes(:services, :vehicle, :customer, :cancellation).find(params[:id])
+      @request = Request.includes(:price, :customer, :cancellation).find(params[:id])
     end
   end
 end

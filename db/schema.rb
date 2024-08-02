@@ -138,6 +138,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_135448) do
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.integer "amount"
+    t.integer "status"
+    t.bigint "vehicle_size_id", null: false
+    t.bigint "service_id", null: false
+    t.bigint "region_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_prices_on_region_id"
+    t.index ["service_id"], name: "index_prices_on_service_id"
+    t.index ["vehicle_size_id"], name: "index_prices_on_vehicle_size_id"
+  end
+
   create_table "push_subscriptions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "endpoint"
@@ -150,13 +163,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_135448) do
     t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
   end
 
-  create_table "request_services", force: :cascade do |t|
-    t.bigint "request_id", null: false
-    t.bigint "service_id", null: false
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active"
+    t.float "center_lat"
+    t.float "center_long"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["request_id"], name: "index_request_services_on_request_id"
-    t.index ["service_id"], name: "index_request_services_on_service_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -172,20 +185,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_135448) do
     t.integer "request_type"
     t.bigint "customer_id"
     t.bigint "vendor_id"
-    t.bigint "vehicle_id", null: false
+    t.bigint "price_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_requests_on_customer_id"
-    t.index ["vehicle_id"], name: "index_requests_on_vehicle_id"
+    t.index ["price_id"], name: "index_requests_on_price_id"
     t.index ["vendor_id"], name: "index_requests_on_vendor_id"
   end
 
   create_table "services", force: :cascade do |t|
     t.string "name"
-    t.float "min_price"
-    t.float "max_price"
-    t.float "avg_price"
-    t.string "stripe_product_id"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -306,6 +315,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_135448) do
     t.string "timezone", default: "Eastern Time (US & Canada)", null: false
     t.string "phone_number"
     t.integer "user_type"
+    t.bigint "region_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_users_on_region_id"
+  end
+
+  create_table "vehicle_categories", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active"
+    t.bigint "vehicle_size_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vehicle_size_id"], name: "index_vehicle_categories_on_vehicle_size_id"
+  end
+
+  create_table "vehicle_sizes", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -329,15 +356,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_135448) do
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
   add_foreign_key "payments", "users"
+  add_foreign_key "prices", "regions"
+  add_foreign_key "prices", "services"
+  add_foreign_key "prices", "vehicle_sizes"
   add_foreign_key "push_subscriptions", "users"
-  add_foreign_key "request_services", "requests"
-  add_foreign_key "request_services", "services"
-  add_foreign_key "requests", "vehicles"
+  add_foreign_key "requests", "prices"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "users", "regions"
+  add_foreign_key "vehicle_categories", "vehicle_sizes"
   add_foreign_key "vehicles", "users"
 end

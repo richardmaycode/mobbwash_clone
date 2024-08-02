@@ -1,37 +1,14 @@
-<%= form_with model: [:customer, @request], data: { controller: "places", action: "google-maps-callback@window->places#initMap", places_key_value: Rails.application.credentials.dig(:google, :maps_api_key) } do |f| %>
-  <% if @request.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@request.errors.count, "error") %> prohibited this event from being saved:</h2>
-      <ul>
-        <% @request.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="my-4">
-    <%= f.label :vehicle_id, "What are we Washing", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
-    <div class="my-4 flex gap-4">
-      <div class="flex-1">
-        <%= f.select :vehicle_id, options_for_select(@user.vehicles.map { |v| [v.nickname + " | " + v.merged_name, v.id] }, @user.vehicles.where(default: true).sole.id), { }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 inline-block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
-      </div>
-      <div class="flex-none self-center">
-        <%= link_to "Add vehicle", new_customer_vehicle_path, class: "hidden sm:inline text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
-        <%= link_to "+", new_customer_vehicle_path, class: "sm:hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
-      </div>
-    </div>
-  </div>
+<div data-controller="prices" data-prices-region-value="<%= Current.user.region_id %>" data-prices-fetch-url-value="<%= price_path %>">
   <!--Service Details-->
   <div class="my-4">
-    <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What do you need done</h3>
-    <ul class="grid w-full gap-6 md:grid-cols-3">
+    <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Whaddya want from me?</h3>
+    <ul class="grid w-full gap-6 md:grid-cols-2">
       <% @services.active.each do |service| %>
         <li>
-          <%= f.radio_button :service_ids, service.id, class: "hidden peer" %>
-          <%= f.label "service_ids_#{service.id}", class: "inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
-            <div class="block">
-              <div class="w-full text-lg font-semibold"><%= service.name %></div>
-              <div class="w-full">Average Price: <%= number_to_currency(service.avg_price) %></div>
+          <%= radio_button_tag :service_id, service.id, class: "hidden peer", data: { action: "input->prices#setService"} %>
+          <%= label_tag "service_id_#{service.id}", class: "inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
+            <div class="block w-full">
+              <div class="w-full text-lg font-semibold text-center"><%= service.name %></div>
             </div>
           <% end %>
         </li>
@@ -39,48 +16,87 @@
     </ul>
   </div>
   <!--/Service Details-->
-  <div>
-    <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">When do you need your wash?</h3>
-    <div class="grid w-full gap-4 sm:grid-cols-2">
-      <% Request.request_types.each do |rt| %>
-        <div class="">
-          <%= f.radio_button :request_type, rt[0], class: "hidden peer" %>
-          <%= f.label "request_type_" + rt[0], class: "inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
-            <div class="block">
-              <div class="w-full text-lg font-semibold"><%= rt[0].upcase %></div>
-              <div class="w-full"><%= request_type_label(rt)%></div>
+  <!--Auto Details-->
+  <div class="my-4">
+    <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What you want washed?</h3>
+    <ul class="grid w-full gap-6 md:grid-cols-3">
+      <% VehicleSize.active.each do |size| %>
+        <li>
+          <%= radio_button_tag :vehicle_size_id, size.id,  class: "hidden peer", data: { action: "input->prices#setSize"} %>
+          <%= label_tag "vehicle_size_id_#{size.id}", class: "inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
+            <div class="block justify-center w-full">
+              <div class="w-full text-lg font-semibold text-center"><%= size.name %></div>
             </div>
           <% end %>
-        </div>
+        </li>
       <% end %>
+    </ul>
+  </div>
+  <!--/Auto Details-->
+  <%= form_with model: [:customer, @request], data: { controller: "places", action: "google-maps-callback@window->places#initMap", places_key_value: Rails.application.credentials.dig(:google, :maps_api_key) } do |f| %>
+    <!--<div class="my-4">-->
+    <%#= f.label :vehicle_id, "What are we Washing", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+    <!--    <div class="my-4 flex gap-4">
+      <div class="flex-1">
+        <%#= f.select :vehicle_id, options_for_select(@user.vehicles.map { |v| [v.nickname + " | " + v.merged_name, v.id] }, @user.vehicles.where(default: true).sole.id), { }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 inline-block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>-->
+    <!--      </div>
+      <div class="flex-none self-center">
+        <%#= link_to "Add vehicle", new_customer_vehicle_path, class: "hidden sm:inline text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>-->
+    <%#= link_to "+", new_customer_vehicle_path, class: "sm:hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    <!--      </div>
     </div>
-  </div>
-  <div class="my-4">
-    <%= f.datetime_field :scheduled, 
-      value: (Time.zone.now + 2.hours).beginning_of_hour.beginning_of_minute, 
+  </div>-->
+    <div data-controller="scheduling" data-scheduling-asap-date-value="<%= ((Time.zone.now + 2.hours).beginning_of_hour.beginning_of_minute) %>">
+      <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">When ya need it?</h3>
+      <div class="grid w-full gap-4 sm:grid-cols-2">
+        <% Request.request_types.each do |rt| %>
+          <div class="">
+            <%= f.radio_button :request_type, rt[0], class: "hidden peer", data: { action: "input->scheduling#switchType"} %>
+            <%= f.label "request_type_" + rt[0], class: "inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
+              <div class="block">
+                <div class="w-full text-lg font-semibold"><%= rt[0].upcase %></div>
+                <div class="w-full"><%= request_type_label(rt)%></div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="my-4">
+        <%= f.hidden_field :scheduled, value: "", data: { scheduling_target: "hiddenInput" } %>
+        <%= f.datetime_field :scheduled, 
+      data: { scheduling_target: "shownInput" },
       min: (Time.zone.now + 2.hours).beginning_of_hour.beginning_of_minute, 
-      class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
-  </div>
-  <div class="my-4">
-    <%= f.label :location, "Where is it?", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
-    <%= f.text_field :location, data: { places_target: "field", action: "keydown->places#keydown" }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
-    <%= f.hidden_field :location_lat, value: f.object.location_lat, data: { places_target: "latitude" } %>
-    <%= f.hidden_field(:location_long, value: f.object.location_long, data: { places_target: "longitude" }) %>
-  </div>
-  <div>
-    <div data-places-target="map" style="height:200px;width:100%;"></div>
-  </div>
-  <div class="my-4">
-    <%= f.label :access_details, "How can we find it?", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"%>
-    <%= f.text_area :access_details, size: "70x5", class: "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
-  </div>
+      class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 #{f.object.request_type == "asap" ? "hidden" : "" }" %>
+      </div>
+    </div>
+    <div class="my-4">
+      <%= f.label :location, "Where is it?", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+      <%= f.text_field :location, data: { places_target: "field", action: "keydown->places#keydown" }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
+      <%= f.hidden_field :location_lat, value: f.object.location_lat, data: { places_target: "latitude" } %>
+      <%= f.hidden_field(:location_long, value: f.object.location_long, data: { places_target: "longitude" }) %>
+    </div>
+    <div>
+      <div data-places-target="map" style="height:200px;width:100%;"></div>
+    </div>
+    <div class="my-4">
+      <%= f.label :access_details, "How can we find it?", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white"%>
+      <%= f.text_area :access_details, size: "70x5", class: "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+    </div>
+    <div class="my-4 hidden" data-prices-target="zone">
+      <div class="font-bold w-full text-center mx-auto p-4 md:p-12 bg-slate-200 rounded-lg">
+        <p id="#W1" class="text-2xl md:text-4xl" data-prices-target="display"></p>
+        <%= f.label :price, "That'll cost ya", class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= f.hidden_field :price_id, value: 0, data: { prices_target: "input" } %>
+        <p class= "block mb-2 text-sm font-medium text-gray-900">(You can figure out the tip later)</p>
+      </div>
+    </div>
+    <!--Form Actions-->
+    <div class="my-4">
+      <%= f.submit class: "w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    </div>
+    <div class="my-4">
+      <%= link_to "Cancel", customer_requests_path, class: "block text-center w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>
+    </div>
+    <!--/Form Actions-->
+  <% end %>
 </div>
-<!--Form Actions-->
-<div class="my-4">
-  <%= f.submit class: "w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
-</div>
-<div class="my-4">
-  <%= link_to "Cancel", customer_requests_path, class: "block text-center w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>
-</div>
-<!--/Form Actions-->
-<% end %>

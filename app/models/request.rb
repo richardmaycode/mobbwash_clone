@@ -1,15 +1,15 @@
 class Request < ApplicationRecord
-  enum :status, { awaiting_bids: 0, awaiting_payment: 1, assigned: 2, completed: 3, expired: 4, cancelled: 5 }, default: :awaiting_bids
-  enum :request_type, { asap: 0, scheduled: 1 }, default: :scheduled
+  # Setup for standard requests
+  enum :status, { fresh: 0, unassigned: 1, assigned: 2, unpaid: 3, completed: 4, expired: 5, cancelled: 6 }, default: :new
+  enum :request_type, { asap: 0, scheduled: 1 }, default: :asap
 
   belongs_to :customer, class_name: "User", required: false
   belongs_to :vendor, class_name: "User", required: false
-  belongs_to :vehicle
+  # belongs_to :vehicle
+  belongs_to :price
 
   has_one :cancellation, required: false
 
-  has_many :request_services, inverse_of: :request, dependent: :destroy
-  has_many :services, through: :request_services, source: :service
   has_many :bids
 
   scope :not_today, -> { where("scheduled < ?", Date.today) }
@@ -70,6 +70,22 @@ class Request < ApplicationRecord
 
   def assign_request_number
     update_column(:request_number, 13000000 + id)
+  end
+
+  def send_test_notification
+    if ps = PushSubscription.first
+      WebPush.payload_send(
+        message: "{\"title\":\"Test Title\",\"options\":{\"body\":\"Body of text\"}}",
+        endpoint: ps.endpoint,
+        p256dh: ps.p256dh_key,
+        auth: ps.auth_key,
+        vapid: {
+          subject: "mailto:info@woodyspaper.com",
+          public_key: Rails.application.credentials.dig(:webpush, :public_key),
+          private_key: Rails.application.credentials.dig(:webpush, :private_key)
+        }
+      )
+    end
   end
 end
 
