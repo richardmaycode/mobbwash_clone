@@ -18,6 +18,12 @@
       <%= render "customer/password_resets/form" %>
     <% end %>
   </div>
+  <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Password</h5>
+    <%= turbo_frame_tag "edit-password" do %>
+      <%= render "customer/payment_methods/new" %>
+    <% end %>
+  </div>
   <!-- Payment Details for Customer -->
   <% if @user.customer? %>
     <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">

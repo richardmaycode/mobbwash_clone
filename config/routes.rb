@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     end
     resources :contact_details, only: [ :edit, :update ]
     resources :payments, only: [ :index, :new, :create ]
+    resources :payment_methods, only: [ :new, :create ]
   end
 
   # Vendor Views

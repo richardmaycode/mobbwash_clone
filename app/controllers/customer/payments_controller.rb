@@ -3,10 +3,11 @@ module Customer
     layout "customer"
     before_action :set_user
     def new
-      @request = Request.includes(:services, :vehicle, :vendor, :bids).find(params[:request_id])
+      @request = Request.includes(:price, :vendor, :bids).find(params[:request_id])
       @payment = Payment.new
 
-      set_checkout_session
+      # set_checkout_session
+      set_payment_method
     rescue Pay::Error => e
       flash[:alert] = e.message
       redirect_to customer_request_path(@request)
@@ -20,6 +21,9 @@ module Customer
 
     def payment_params
       params.require(:payment).permit(:outcome, :memo, :user_id)
+    end
+
+    def set_payment_method
     end
 
     def set_checkout_session
