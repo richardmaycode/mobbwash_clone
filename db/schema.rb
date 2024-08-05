@@ -186,6 +186,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_135448) do
     t.bigint "customer_id"
     t.bigint "vendor_id"
     t.bigint "price_id", null: false
+    t.string "capture_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_requests_on_customer_id"

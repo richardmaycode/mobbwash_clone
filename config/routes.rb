@@ -40,10 +40,12 @@ Rails.application.routes.draw do
   # Customer Views
   namespace :customer do
     resource :fulfillments, only: [ :show ]
+    resource :auths, only: [ :show ]
     resources :requests, only: [ :index, :show, :new, :create ] do
       resources :bids, only: [ :index ] do
         post "accept", on: :member
       end
+      resources :authorizations, only: [ :new, :create ]
     end
     resources :vehicles do
       resource :default, only: [ :create ], module: :vehicles
@@ -53,7 +55,8 @@ Rails.application.routes.draw do
     end
     resources :contact_details, only: [ :edit, :update ]
     resources :payments, only: [ :index, :new, :create ]
-    resources :payment_methods, only: [ :new, :create ]
+    resources :payment_methods, only: [ :index, :new, :create ]
+    get "payment_methods/add", to: "payment_methods#add"
   end
 
   # Vendor Views
@@ -76,4 +79,6 @@ Rails.application.routes.draw do
   get "/customer", to: redirect("/customer/requests")
   get "/vendor", to: redirect("vendor/dashboards")
   get "/admin", to: redirect("admin/customers")
+
+  root "index", controller: "customer/requests"
 end

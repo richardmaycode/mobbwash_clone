@@ -1,0 +1,18 @@
+<div class="my-4">
+  <h1>Payment Methods</h1>
+</div>
+<%= turbo_frame_tag "payment_method" do %>
+  <div class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <div class="table-header-group text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+      <div class="table-row">
+        <div class="table-cell text-left px-6 py-3">Brand</div>
+        <div class="table-cell text-left px-6 py-3">Last Four</div>
+        <div class="table-cell text-left px-6 py-3">Expiration Date</div>
+        <div class="table-cell text-left px-6 py-3">Default</div>
+      </div>
+    </div>
+    <div class="table-row-group">
+      <%= render partial: "payment_method", collection: @payment_methods %>
+    </div>
+  </div>
+<% end %>

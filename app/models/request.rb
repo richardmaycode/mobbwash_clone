@@ -1,6 +1,6 @@
 class Request < ApplicationRecord
   # Setup for standard requests
-  enum :status, { fresh: 0, unassigned: 1, assigned: 2, unpaid: 3, completed: 4, expired: 5, cancelled: 6 }, default: :new
+  enum :status, { fresh: 0, unassigned: 1, assigned: 2, unpaid: 3, completed: 4, expired: 5, cancelled: 6 }, default: :fresh
   enum :request_type, { asap: 0, scheduled: 1 }, default: :asap
 
   belongs_to :customer, class_name: "User", required: false
@@ -49,13 +49,13 @@ class Request < ApplicationRecord
   end
 
   def completion_status
-    if status != "completed"
+    if status != "unpaid"
       errors.add(:status, "must be completed when completion is finished")
     end
   end
 
   def completed_cannot_be_in_the_future
-    if completed.present? && completed > Date.today
+    if completed.present? && completed <= Date.today
       errors.add(:completed, "can't be in the future")
     end
   end

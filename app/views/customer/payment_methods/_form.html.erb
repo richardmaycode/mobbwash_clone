@@ -1,5 +1,0 @@
-  <%= tag.div data: { controller: "stripe-payment-methods", stripe_payment_methods_public_key_value: Pay::Stripe.public_key, stripe_payment_methods_client_secret_value: @intent.client_secret } do %>
-  <div id="payments-method" data-stripe-payment-methods-target="method", class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-  </div>
-  <%= button_tag "Update Payment Info", data: { action: "click->stripe-payment-methods#submit" } %>
-<% end %>

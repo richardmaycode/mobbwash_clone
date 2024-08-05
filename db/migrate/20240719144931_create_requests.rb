@@ -22,6 +22,7 @@ class CreateRequests < ActiveRecord::Migration[7.2]
       t.belongs_to :price, null: false, foreign_key: true
       # t.belongs_to :vehicle, null: false, foreign_key: true
 
+      t.string :capture_id
       t.timestamps
     end
   end

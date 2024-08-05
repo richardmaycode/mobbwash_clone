@@ -1,0 +1,26 @@
+<div class="my-4">
+  <h1 class="text-4xl">Authorize Payment</h1>
+</div>
+<%= form_with url: customer_request_authorizations_path(@request) do |f| %>
+  <div class="my-2">
+    <div class="flex justify-between mb-3">
+      <h3 clas="text-xl">Select Payment Method</h3>
+      <%= link_to "Add Card", new_customer_payment_method_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    </div>
+    <div class="my-2">
+      <ul class="grid w-full gap-6 md:grid-cols-1">
+        <% @payment_methods.each do |payment_method| %>
+          <li>
+            <%= radio_button_tag :payment_method_id, payment_method.id, class: "hidden peer", checked: payment_method.default %>
+            <%= label_tag "payment_method_id_#{payment_method.id}", class: "inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" do %>
+              <div class="block w-full">
+                <div class="w-full text-lg font-semibold text-center"><%= payment_method.brand %> | <%= payment_method.last4 %> <%= payment_method.default ? "Default" : "" %></div>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+        <%= f.submit "Authorize #{number_to_currency(@request.price.amount * 0.01)}", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+      </ul>
+    </div>
+  </div>
+<% end %>

@@ -11,14 +11,12 @@
           <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt class="text-sm font-medium leading-6 text-gray-900">Vehicle</dt>
             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <%= @request.vehicle.nickname %>
-              <br />
-              <%= @request.vehicle.merged_name %>
+              <%= @request.price.vehicle_size.name %>
             </dd>
           </div>
           <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt class="text-sm font-medium leading-6 text-gray-900">Service</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @request.services.first.name %> | Avg Price: <%= number_to_currency(@request.services.first.avg_price) %> </dd>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @request.price.service.name %> | Price: <%= number_to_currency(@request.price.amount * 0.01) %> </dd>
           </div>
           <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
@@ -40,7 +38,7 @@
     <div class="flex items-center justify-center w-full h-40 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
       <div class="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">loading...</div>
     </div>
-  <% end %>
+  <% end if @request.price.service_id == 4 %>
   <% if @request.completed? %>
     <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
@@ -55,11 +53,38 @@
       <a href="#">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Vendor Details</h5>
       </a>
-      <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        <div class="grid grid-cols-3">
-          <%#= label %>
-        </div>
+      <div class="mt-6 border-t border-gray-100">
+        <dl class="divide-y divide-gray-100">
+          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt class="text-sm font-medium leading-6 text-gray-900">Vendor Name</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <%= @request.vendor.name %>
+            </dd>
+          </div>
+          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt class="text-sm font-medium leading-6 text-gray-900">Contact Details</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @request.vendor.phone_number %> </dd>
+          </div>
+        </dl>
       </div>
+    </div>
+  <% end %>
+  <% if @request.capture_id.present? %>
+    <!--Vendor Card -->
+    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <a href="#">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payment Details</h5>
+      </a>
+      <% if @request.status == "unassigned" || @request.status == "assigned" %>
+        <div class="mt-6">
+          We have captured a preauthorization for you request, once the wash has been completed you will be able to complete the payment
+        </div>
+      <% end %>
+      <% if @request.status == "unpaid" %>
+        <div class="mt-6 border-t border-gray-100">
+          <%= link_to "Complete Payment", new_customer_payment_path(request_id: @request.id), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

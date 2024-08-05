@@ -4,26 +4,29 @@ module Customer
     before_action :set_user
     def new
       @request = Request.includes(:price, :vendor, :bids).find(params[:request_id])
-      @payment = Payment.new
+    end
 
-      # set_checkout_session
-      set_payment_method
-    rescue Pay::Error => e
-      flash[:alert] = e.message
-      redirect_to customer_request_path(@request)
+    def create
+      @request = Request.includes(:price, :vendor, :bids).find(params[:request_id])
+      tip_amount = params[:tip_amount].to_f
+      puts (tip_amount * 100).to_i
+      puts (tip_amount * 100).to_i + @request.price.amount
+      render :new
+      Stripe.api_key = Rails.application.credentials.dig(:development, :stripe, :private_key)
+      intent = Stripe::PaymentIntent.capture(
+        @request.capture_id,
+        {
+          amount_to_capture: @request.price.amount
+        }
+      )
+
+      puts intent
     end
 
     private
 
     def set_user
       @user ||= Current.user
-    end
-
-    def payment_params
-      params.require(:payment).permit(:outcome, :memo, :user_id)
-    end
-
-    def set_payment_method
     end
 
     def set_checkout_session
@@ -38,8 +41,8 @@ module Customer
         ui_mode: :embedded,
         line_items: [
           price_data:  {
-            unit_amount:  (@request.bids.where(vendor_id: @request.vendor_id).first.amount * 100).to_i,
-            product: @request.services.first.stripe_product_id,
+            unit_amount:  @request.price.amount,
+            product: "prod_QZoMj98uGzCuFf",
             currency: :usd
           }, quantity: 1
         ],

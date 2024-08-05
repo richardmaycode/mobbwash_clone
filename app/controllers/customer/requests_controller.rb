@@ -22,7 +22,11 @@ module Customer
       @services = Service.active
 
       if @request.save
-        redirect_to customer_requests_path(), notice: "Request successfully created!"
+        if User.last.payment_processor.payment_methods.empty?
+          redirect_to new_customer_payment_method_path
+        else
+          redirect_to new_customer_request_authorization_path(request_id: @request.id)
+        end
       else
         render :new, status: :unprocessable_entity
       end

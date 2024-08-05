@@ -19,9 +19,12 @@
     <% end %>
   </div>
   <div href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Password</h5>
-    <%= turbo_frame_tag "edit-password" do %>
-      <%= render "customer/payment_methods/new" %>
+    <div class="flex justify-between">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Payment Methods</h5>
+      <%= link_to "Add Card", new_customer_payment_method_path, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    </div>
+    <%= turbo_frame_tag "payment_method", src: customer_payment_methods_path do %>
+      loading...
     <% end %>
   </div>
   <!-- Payment Details for Customer -->
@@ -36,8 +39,13 @@
             <div class="table-cell px-6 py-3">Memo</div>
           </div>
         </div>
-        <%= render partial: "customer/payments/payment", collection: @user.payments %>
+        <%#= render partial: "customer/payments/payment", collection: @user.payments %>
+        <% Current.user.charges.each do |test| %>
+          <%= test.brand %>
+          <%= link_to "receipt", test.stripe_receipt_url %>
+          <%#=# TODO: Setup complete view %>
+        <% end %>
       </div>
     </div>
-  <% end%>
+  <% end %>
 </div>

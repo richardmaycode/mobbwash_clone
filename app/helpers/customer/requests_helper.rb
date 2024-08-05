@@ -26,4 +26,5 @@ module Customer::RequestsHelper
       "Unexpected Input"
     end
   end
+
 end

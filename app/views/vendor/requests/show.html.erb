@@ -15,14 +15,12 @@
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt class="text-sm font-medium leading-6 text-gray-900">Vehicle</dt>
               <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                <%= @request.vehicle.nickname %>
-                <br />
-                <%= @request.vehicle.merged_name %>
+                <%= @request.price.vehicle_size.name %>
               </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt class="text-sm font-medium leading-6 text-gray-900">Service</dt>
-              <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @request.services.first.name %> | Avg Price: <%= number_to_currency(@request.services.first.avg_price) %> </dd>
+              <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @request.price.service.name %> |<%= number_to_currency(@request.price.amount * 0.01) %> </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
@@ -41,7 +39,7 @@
       </div>
     </div>
     <!-- Bid Info -->
-    <% if @request.bids.where(vendor_id: Current.user.id).any? %>
+    <% if @request.bids.where(vendor_id: Current.user.id).any? && @request.request_type == "custom" %>
       <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div>
           <div class="px-4 sm:px-0 flex justify-between align-center">
@@ -71,7 +69,7 @@
     <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Actions</h5>
       <div class="grid md:grid-cols-3 grid-cols-1 sm:grid-cols-2 mt-4 text-center">
-        <% if @request.awaiting_bids? %>
+        <% if false # fix this to show when item is biddable %>
           <%= link_to "Bid", new_vendor_request_bid_path(@request), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" unless @request.bids.where(vendor_id: Current.user.id) %>
         <% elsif @request.assigned? %>
           <%= link_to "Mark Complete", edit_vendor_completions_request_path(@request), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
