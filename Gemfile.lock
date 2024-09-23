@@ -130,7 +130,7 @@ GEM
     jwt (2.8.2)
       base64
     language_server-protocol (3.17.0.3)
-    logger (1.6.0)
+    logger (1.6.1)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -232,8 +232,7 @@ GEM
       io-console (~> 0.5)
     requestjs-rails (0.0.11)
       railties (>= 6.1.0)
-    rexml (3.3.2)
-      strscan
+    rexml (3.3.7)
     rubocop (1.65.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -265,7 +264,7 @@ GEM
       rubocop-rails
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
-    selenium-webdriver (4.22.0)
+    selenium-webdriver (4.25.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -281,7 +280,6 @@ GEM
       railties (>= 6.0.0)
     stringio (3.1.1)
     stripe (12.4.0)
-    strscan (3.1.0)
     tailwindcss-rails (2.6.3)
       railties (>= 7.0.0)
     tailwindcss-rails (2.6.3-aarch64-linux)
