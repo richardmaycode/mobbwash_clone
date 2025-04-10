@@ -7,7 +7,7 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.merge(user_type: "customer", region_id: 1)) # TODO: change these merge defaults to be location and user registration dependent
 
     if @user.save
       after_registration(@user)
